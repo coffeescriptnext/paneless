@@ -87,7 +87,7 @@ var PaneHeader = React.createClass({
           onCodeLocationChange={this.props.onCodeLocationChange} />
         <button
           className='close-button'
-          onClick={this.props.onClosePane}>
+          onClick={this.props.onChangeActive.bind(this.parent, false)}>
             X
         </button>
       </div>
@@ -112,8 +112,8 @@ var PaneContainer = React.createClass({
     this.setState({codeLocation: event.target.value});
   },
 
-  onClosePane: function(event) {
-    this.setState({active: false});
+  onChangeActive: function(a) {
+    this.setState({active: a});
   },
 
   render: function() {
@@ -125,7 +125,7 @@ var PaneContainer = React.createClass({
             onTypeChange={this.onTypeChange}
             codeLocation={this.state.codeLocation}
             onCodeLocationChange={this.onCodeLocationChange}
-            onClosePane={this.onClosePane} />
+            onChangeActive={this.onChangeActive} />
           <Pane
             type={this.state.type} />
         </div>
