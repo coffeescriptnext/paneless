@@ -30,7 +30,8 @@ var Pane = React.createClass({
       return (
         <textarea
           className='inner content textarea'
-          placeholder={paneTypeFullNames[type]} />
+          placeholder={paneTypeFullNames[type]}
+        />
       );
     }
   }
@@ -80,11 +81,13 @@ var PaneHeader = React.createClass({
       <div className='inner header'>
         <PaneTypeSelector
           type={this.props.type}
-          onTypeChange={this.props.onTypeChange} />
+          onTypeChange={this.props.onTypeChange}
+        />
         <PaneCodeLocationSelector
           type={this.props.type}
           codeLocation={this.props.codeLocation}
-          onCodeLocationChange={this.props.onCodeLocationChange} />
+          onCodeLocationChange={this.props.onCodeLocationChange}
+        />
         <button
           className='close-button'
           onClick={this.props.onChangeActive.bind(this.parent, false)}>
@@ -125,9 +128,11 @@ var PaneContainer = React.createClass({
             onTypeChange={this.onTypeChange}
             codeLocation={this.state.codeLocation}
             onCodeLocationChange={this.onCodeLocationChange}
-            onChangeActive={this.onChangeActive} />
+            onChangeActive={this.onChangeActive}
+          />
           <Pane
-            type={this.state.type} />
+            type={this.state.type}
+          />
         </div>
       );
     } else {
@@ -136,7 +141,8 @@ var PaneContainer = React.createClass({
           <img
             className='plus-sign'
             src='../assets/plus-sign-300.jpg'
-            onClick={this.onChangeActive.bind(this, true)} />
+            onClick={this.onChangeActive.bind(this, true)}
+          />
         </div>
       );
     }
