@@ -2,7 +2,7 @@ var containerTypeFullNames = {'js': 'Javascript',
                               'html': 'HTML',
                               'css': 'CSS',}
 
-var TextContainer = React.createClass({
+var Pane = React.createClass({
   render: function() {
     var containerType = this.props.containerType;
 
@@ -16,7 +16,7 @@ var TextContainer = React.createClass({
 
 var PaneContainer = React.createClass({
   render: function() {
-    return <div className='pane'><TextContainer containerType={this.props.containerType} /></div>;
+    return <div className='pane'><Pane containerType={this.props.containerType} /></div>;
   }
 });
 
