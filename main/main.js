@@ -22,19 +22,29 @@ var Pane = React.createClass({
   }
 });
 
+var PaneTypeSelector = React.createClass({
+  render: function() {
+    return (
+      <select value={this.props.paneType} onChange={this.props.onPaneTypeChange}>
+        {Object.keys(paneTypeFullNames).map(function(k) {
+          return (
+            <option value={k}>
+              {paneTypeFullNames[k]}
+            </option>
+          );
+        }, this)}
+      </select>
+    );
+  }
+});
+
 var PaneHeader = React.createClass({
   render: function() {
     return (
       <div className='pane-header'>
-        <select value={this.props.paneType} onChange={this.props.onPaneTypeChange}>
-          {Object.keys(paneTypeFullNames).map(function(k) {
-            return (
-              <option value={k}>
-                {paneTypeFullNames[k]}
-              </option>
-            );
-          }, this)}
-        </select>
+        <PaneTypeSelector
+          paneType={this.props.paneType}
+          onPaneTypeChange={this.props.onPaneTypeChange} />
       </div>
     );
   }
