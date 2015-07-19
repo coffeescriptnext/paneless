@@ -20,14 +20,18 @@ var Pane = React.createClass({
 });
 
 var PaneContainer = React.createClass({
+  getInitialState: function() {
+    return {containerType: this.props.initContainerType};
+  },
+
   render: function() {
     return (
       <div className='pane-container'>
-        <Pane containerType={this.props.containerType} />
+        <Pane containerType={this.state.containerType} />
       </div>
     );
   }
 });
 
-React.render(<PaneContainer containerType='html' />,
+React.render(<PaneContainer initContainerType='html' />,
   document.body);
