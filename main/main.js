@@ -53,11 +53,18 @@ var PaneHeader = React.createClass({
 
 var PaneContainer = React.createClass({
   getInitialState: function() {
-    return {type: this.props.initType};
+    return {
+      type: this.props.initType,
+      codeLocation: this.props.initCodeLocation,
+    };
   },
 
   onTypeChange: function(event) {
     this.setState({type: event.target.value});
+  },
+
+  onCodeLocationChange: function(event) {
+    this.setState({codeLocation: event.target.value});
   },
 
   render: function() {
@@ -65,12 +72,14 @@ var PaneContainer = React.createClass({
       <div className='pane-container'>
         <PaneHeader
           type={this.state.type}
-          onTypeChange={this.onTypeChange}/>
+          onTypeChange={this.onTypeChange}
+          codeLocation={this.state.codeLocation}
+          onCodeLocationChange={this.onCodeLocationChange} />
         <Pane type={this.state.type} />
       </div>
     );
   }
 });
 
-React.render(<PaneContainer initType='html' />,
+React.render(<PaneContainer initType='html' codeLocation='' />,
   document.body);
