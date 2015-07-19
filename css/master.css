@@ -4,10 +4,6 @@ html, body, .inner, .inner-output {
   margin: 0;
 }
 
-#container {
-  height: 90%;
-}
-
 .pane {
   height: 50%;
   width: 50%;

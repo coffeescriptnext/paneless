@@ -20,5 +20,5 @@ var PaneContainer = React.createClass({
   }
 });
 
-React.render(<div id='container'><PaneContainer containerType='html' /></div>,
+React.render(<PaneContainer containerType='html' />,
   document.body);
