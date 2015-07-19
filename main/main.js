@@ -7,9 +7,9 @@ var paneTypeFullNames = {
 
 var Pane = React.createClass({
   render: function() {
-    var paneType = this.props.paneType;
+    var type = this.props.type;
 
-    if (paneType === 'output') {
+    if (type === 'output') {
       return (
         <iframe className='pane'/>
       );
@@ -17,7 +17,7 @@ var Pane = React.createClass({
       return (
         <textarea
           className='pane textarea'
-          placeholder={paneTypeFullNames[paneType]} />
+          placeholder={paneTypeFullNames[type]} />
       );
     }
   }
@@ -26,7 +26,7 @@ var Pane = React.createClass({
 var PaneTypeSelector = React.createClass({
   render: function() {
     return (
-      <select value={this.props.paneType} onChange={this.props.onPaneTypeChange}>
+      <select value={this.props.type} onChange={this.props.onTypeChange}>
         {Object.keys(paneTypeFullNames).map(function(k) {
           return (
             <option value={k}>
@@ -44,8 +44,8 @@ var PaneHeader = React.createClass({
     return (
       <div className='pane-header'>
         <PaneTypeSelector
-          paneType={this.props.paneType}
-          onPaneTypeChange={this.props.onPaneTypeChange} />
+          type={this.props.type}
+          onTypeChange={this.props.onTypeChange} />
       </div>
     );
   }
@@ -53,24 +53,24 @@ var PaneHeader = React.createClass({
 
 var PaneContainer = React.createClass({
   getInitialState: function() {
-    return {paneType: this.props.initPaneType};
+    return {type: this.props.initType};
   },
 
-  onPaneTypeChange: function(event) {
-    this.setState({paneType: event.target.value});
+  onTypeChange: function(event) {
+    this.setState({type: event.target.value});
   },
 
   render: function() {
     return (
       <div className='pane-container'>
         <PaneHeader
-          paneType={this.state.paneType}
-          onPaneTypeChange={this.onPaneTypeChange}/>
-        <Pane paneType={this.state.paneType} />
+          type={this.state.type}
+          onTypeChange={this.onTypeChange}/>
+        <Pane type={this.state.type} />
       </div>
     );
   }
 });
 
-React.render(<PaneContainer initPaneType='html' />,
+React.render(<PaneContainer initType='html' />,
   document.body);
