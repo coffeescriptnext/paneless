@@ -85,6 +85,11 @@ var PaneHeader = React.createClass({
           type={this.props.type}
           codeLocation={this.props.codeLocation}
           onCodeLocationChange={this.props.onCodeLocationChange} />
+        <button
+          className='close-button'
+          onClick={this.props.onClosePane}>
+            X
+        </button>
       </div>
     );
   }
@@ -107,6 +112,10 @@ var PaneContainer = React.createClass({
     this.setState({codeLocation: event.target.value});
   },
 
+  onClosePane: function(event) {
+    this.setState({active: false});
+  },
+
   render: function() {
     if (this.state.active) {
       return (
@@ -115,14 +124,19 @@ var PaneContainer = React.createClass({
             type={this.state.type}
             onTypeChange={this.onTypeChange}
             codeLocation={this.state.codeLocation}
-            onCodeLocationChange={this.onCodeLocationChange} />
+            onCodeLocationChange={this.onCodeLocationChange}
+            onClosePane={this.onClosePane} />
           <Pane
             type={this.state.type} />
         </div>
       );
     } else {
       return (
-        <div className='pane inactive'></div>
+        <div className='pane inactive'>
+          <img
+            className='plus-sign'
+            src='../assets/plus-sign-300.jpg' />
+        </div>
       );
     }
   }

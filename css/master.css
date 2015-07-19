@@ -18,7 +18,14 @@ html, body {
 }
 
 .pane.inactive {
+  background: transparent repeating-linear-gradient(45deg, #FFF, #FFF 17px, #AAA 17px, #AAA 20px) repeat scroll 0% 0%;
+  background-clip: content-box;
+  position: relative;
+}
 
+.close-button {
+  float: right;
+  margin: 0;
 }
 
 .pane .inner {
@@ -33,6 +40,18 @@ html, body {
 
   padding-bottom: 5px;
   box-sizing: padding-box;
+}
+
+.plus-sign {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  height: 30%;
+  width: auto;
 }
 
 .pane .inner.content {
