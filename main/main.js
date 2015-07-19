@@ -7,16 +7,25 @@ var Pane = React.createClass({
     var containerType = this.props.containerType;
 
     if (containerType === 'output') {
-      return <iframe className='inner'/>;
+      return (
+        <iframe className='inner'/>
+      );
     } else {
-      return <textarea className='inner textarea' placeholder={containerTypeFullNames[containerType]}></textarea>;
+      return (
+        <textarea className='inner textarea'
+                  placeholder={containerTypeFullNames[containerType]} />
+      );
     }
   }
 });
 
 var PaneContainer = React.createClass({
   render: function() {
-    return <div className='pane'><Pane containerType={this.props.containerType} /></div>;
+    return (
+      <div className='pane'>
+        <Pane containerType={this.props.containerType} />
+      </div>
+    );
   }
 });
 
