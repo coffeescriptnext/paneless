@@ -5,6 +5,21 @@ var paneTypeFullNames = {
   'output': 'Output',
 }
 
+var paneCodeLocations = {
+  'js': {
+    'head': 'Inside a <script> tag in <head>',
+    'window.onload': 'Inside window.onload',
+  },
+  'html': {
+    'body': 'Inside <body>',
+  },
+  'css': {
+    'head': 'Inside a <style> tag in <head>'
+  },
+  'output': {
+  },
+}
+
 var Pane = React.createClass({
   render: function() {
     var type = this.props.type;
@@ -39,6 +54,28 @@ var PaneTypeSelector = React.createClass({
   }
 });
 
+var PaneCodeLocationSelector = React.createClass({
+  render: function() {
+    var thisCodeLocations = paneCodeLocations[this.props.type];
+
+    if (Object.keys(thisCodeLocations).length === 0) {
+      return false;
+    } else {
+      return (
+        <select value={this.props.codeLocation} onChange={this.props.onCodeLocationChange}>
+          {Object.keys(thisCodeLocations).map(function(k) {
+            return (
+              <option value={k}>
+                {thisCodeLocations[k]}
+              </option>
+            );
+          }, this)}
+        </select>
+      );
+    }
+  }
+});
+
 var PaneHeader = React.createClass({
   render: function() {
     return (
@@ -46,6 +83,10 @@ var PaneHeader = React.createClass({
         <PaneTypeSelector
           type={this.props.type}
           onTypeChange={this.props.onTypeChange} />
+        <PaneCodeLocationSelector
+          type={this.props.type}
+          codeLocation={this.props.codeLocation}
+          onCodeLocationChange={this.props.onCodeLocationChange} />
       </div>
     );
   }
