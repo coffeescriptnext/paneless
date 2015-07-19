@@ -15,8 +15,9 @@ var Pane = React.createClass({
       );
     } else {
       return (
-        <textarea className='pane textarea'
-                  placeholder={paneTypeFullNames[paneType]} />
+        <textarea
+          className='pane textarea'
+          placeholder={paneTypeFullNames[paneType]} />
       );
     }
   }
@@ -62,7 +63,9 @@ var PaneContainer = React.createClass({
   render: function() {
     return (
       <div className='pane-container'>
-        <PaneHeader paneType={this.state.paneType} onPaneTypeChange={this.onPaneTypeChange}/>
+        <PaneHeader
+          paneType={this.state.paneType}
+          onPaneTypeChange={this.onPaneTypeChange}/>
         <Pane paneType={this.state.paneType} />
       </div>
     );
