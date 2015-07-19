@@ -7,15 +7,18 @@ var TextContainer = React.createClass({
     var containerType = this.props.containerType;
 
     if (containerType === 'output') {
-      insideElement = <iframe className='left-inner-output'/>;
+      return <iframe className='inner-output'/>;
     } else {
-      insideElement = <textarea className='left-inner'
-                                placeholder={containerTypeFullNames[containerType]}></textarea>;
+      return <textarea className='inner' placeholder={containerTypeFullNames[containerType]}></textarea>;
     }
-
-    return <div className='left'>{insideElement}</div>;
   }
 });
 
-React.render(<div id='container'><TextContainer containerType='html' /></div>,
+var PaneContainer = React.createClass({
+  render: function() {
+    return <div className='pane'><TextContainer containerType={this.props.containerType} /></div>;
+  }
+});
+
+React.render(<div id='container'><PaneContainer containerType='html' /></div>,
   document.body);
