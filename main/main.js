@@ -19,6 +19,14 @@ var Pane = React.createClass({
   }
 });
 
+var PaneHeader = React.createClass({
+  render: function() {
+    return (
+      <div className='pane-header'>Hello PaneHeader!</div>
+    );
+  }
+});
+
 var PaneContainer = React.createClass({
   getInitialState: function() {
     return {containerType: this.props.initContainerType};
@@ -27,6 +35,7 @@ var PaneContainer = React.createClass({
   render: function() {
     return (
       <div className='pane-container'>
+        <PaneHeader />
         <Pane containerType={this.state.containerType} />
       </div>
     );

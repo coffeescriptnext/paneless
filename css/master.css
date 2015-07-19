@@ -10,6 +10,12 @@ html, body {
   float: left;
 }
 
+.pane-header {
+  height: 10%;
+  width: 100%;
+  margin: 0;
+}
+
 .pane {
   height: 90%;
   width: 100%;
