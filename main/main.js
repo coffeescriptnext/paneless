@@ -135,7 +135,8 @@ var PaneContainer = React.createClass({
         <div className='pane inactive'>
           <img
             className='plus-sign'
-            src='../assets/plus-sign-300.jpg' />
+            src='../assets/plus-sign-300.jpg'
+            onClick={this.onChangeActive.bind(this, true)} />
         </div>
       );
     }
