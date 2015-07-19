@@ -25,18 +25,14 @@ var Pane = React.createClass({
     var type = this.props.type;
 
     if (type === 'output') {
-      innerPane = <iframe className='pane' />;
+      return <iframe className='inner content' />;
     } else {
-      innerPane = <textarea
-                    className='pane textarea'
-                    placeholder={paneTypeFullNames[type]} />;
+      return (
+        <textarea
+          className='inner content textarea'
+          placeholder={paneTypeFullNames[type]} />
+      );
     }
-
-    return (
-      <div className="pane-wrapper">
-        {innerPane}
-      </div>
-    );
   }
 });
 
@@ -81,7 +77,7 @@ var PaneCodeLocationSelector = React.createClass({
 var PaneHeader = React.createClass({
   render: function() {
     return (
-      <div className='pane-header'>
+      <div className='inner header'>
         <PaneTypeSelector
           type={this.props.type}
           onTypeChange={this.props.onTypeChange} />
@@ -112,7 +108,7 @@ var PaneContainer = React.createClass({
 
   render: function() {
     return (
-      <div className='pane-container'>
+      <div className='pane'>
         <PaneHeader
           type={this.state.type}
           onTypeChange={this.onTypeChange}
