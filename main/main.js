@@ -122,5 +122,10 @@ var PaneContainer = React.createClass({
   }
 });
 
-React.render(<PaneContainer initType='html' codeLocation='' />,
+React.render(<div className='temp'>
+  <PaneContainer initType='html' codeLocation='' />
+  <PaneContainer initType='html' codeLocation='' />
+  <PaneContainer initType='html' codeLocation='' />
+  <PaneContainer initType='html' codeLocation='' />
+  </div>,
   document.body);

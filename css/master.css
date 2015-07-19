@@ -28,3 +28,12 @@ html, body {
   font-family: "Lucida Console", "Courier New", Courier, monospace;
   resize: none;
 }
+
+.temp {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  box-sizing: padding-box;
+}
