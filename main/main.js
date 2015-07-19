@@ -25,7 +25,17 @@ var Pane = React.createClass({
 var PaneHeader = React.createClass({
   render: function() {
     return (
-      <div className='pane-header'>Hello PaneHeader!</div>
+      <div className='pane-header'>
+        <select>
+          {Object.keys(containerTypeFullNames).map(function(k) {
+            return (
+              <option value={k} selected={k === this.props.containerType}>
+                {containerTypeFullNames[k]}
+              </option>
+            );
+          }, this)}
+        </select>
+      </div>
     );
   }
 });
@@ -38,7 +48,7 @@ var PaneContainer = React.createClass({
   render: function() {
     return (
       <div className='pane-container'>
-        <PaneHeader />
+        <PaneHeader containerType={this.state.containerType} />
         <Pane containerType={this.state.containerType} />
       </div>
     );
