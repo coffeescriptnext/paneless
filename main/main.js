@@ -93,6 +93,7 @@ var PaneHeader = React.createClass({
 var PaneContainer = React.createClass({
   getInitialState: function() {
     return {
+      active: this.props.active,
       type: this.props.initType,
       codeLocation: this.props.initCodeLocation,
     };
@@ -107,23 +108,30 @@ var PaneContainer = React.createClass({
   },
 
   render: function() {
-    return (
-      <div className='pane'>
-        <PaneHeader
-          type={this.state.type}
-          onTypeChange={this.onTypeChange}
-          codeLocation={this.state.codeLocation}
-          onCodeLocationChange={this.onCodeLocationChange} />
-        <Pane type={this.state.type} />
-      </div>
-    );
+    if (this.state.active) {
+      return (
+        <div className='pane'>
+          <PaneHeader
+            type={this.state.type}
+            onTypeChange={this.onTypeChange}
+            codeLocation={this.state.codeLocation}
+            onCodeLocationChange={this.onCodeLocationChange} />
+          <Pane
+            type={this.state.type} />
+        </div>
+      );
+    } else {
+      return (
+        <div className='pane inactive'></div>
+      );
+    }
   }
 });
 
 React.render(<div className='temp'>
-  <PaneContainer initType='html' codeLocation='' />
-  <PaneContainer initType='html' codeLocation='' />
-  <PaneContainer initType='html' codeLocation='' />
-  <PaneContainer initType='html' codeLocation='' />
+  <PaneContainer active={true} initType='html' codeLocation='' />
+  <PaneContainer active={false} initType='html' codeLocation='' />
+  <PaneContainer active={false} initType='html' codeLocation='' />
+  <PaneContainer active={true} initType='html' codeLocation='' />
   </div>,
   document.body);

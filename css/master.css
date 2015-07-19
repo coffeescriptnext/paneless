@@ -17,6 +17,10 @@ html, body {
   box-sizing: padding-box;
 }
 
+.pane.inactive {
+
+}
+
 .pane .inner {
   width: 100%;
   margin: 0;
