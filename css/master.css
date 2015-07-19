@@ -8,20 +8,36 @@ html, body {
   height: 50%;
   width: 50%;
   float: left;
+  display: flex;
+  flex-flow: column;
+  padding-top: 10px;
+  padding-left: 10px;
+  box-sizing: padding-box;
 }
 
 .pane-header {
-  height: 10%;
   width: 100%;
   margin: 0;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+}
+
+.pane-wrapper {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 .pane {
-  height: 90%;
+  height: 100%;
   width: 100%;
   margin: 0;
   border: 0;
   box-shadow: inset 0 1px 3px #444444;
+  box-sizing: border-box;
 }
 
 .pane.textarea {

@@ -25,16 +25,18 @@ var Pane = React.createClass({
     var type = this.props.type;
 
     if (type === 'output') {
-      return (
-        <iframe className='pane'/>
-      );
+      innerPane = <iframe className='pane' />;
     } else {
-      return (
-        <textarea
-          className='pane textarea'
-          placeholder={paneTypeFullNames[type]} />
-      );
+      innerPane = <textarea
+                    className='pane textarea'
+                    placeholder={paneTypeFullNames[type]} />;
     }
+
+    return (
+      <div className="pane-wrapper">
+        {innerPane}
+      </div>
+    );
   }
 });
 
