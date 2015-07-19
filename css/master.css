@@ -1,7 +1,7 @@
 html, body {
-	height: 100%;
-	width: 100%;
-	margin: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 
 #container {
@@ -9,15 +9,15 @@ html, body {
 }
 
 .left {
-	height: 50%;
-	width: 50%;
-	float: left;
+  height: 50%;
+  width: 50%;
+  float: left;
 }
 
 .left-inner {
-	height: 100%;
-	width: 100%;
-	margin: 0px;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
   font-family: "Monaco", "Andale Mono", "Lucida Console", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace;
   border: 0px;
   box-shadow: inset 0 1px 3px #444444;
@@ -25,9 +25,9 @@ html, body {
 }
 
 .left-inner-output {
-	height: 100%;
-	width: 100%;
-	margin: 0px;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
   border: 0px;
   box-shadow: inset 0 1px 3px #444444;
 }
