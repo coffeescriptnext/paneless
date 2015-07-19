@@ -7,9 +7,9 @@ var Pane = React.createClass({
     var containerType = this.props.containerType;
 
     if (containerType === 'output') {
-      return <iframe className='inner-output'/>;
+      return <iframe className='inner'/>;
     } else {
-      return <textarea className='inner' placeholder={containerTypeFullNames[containerType]}></textarea>;
+      return <textarea className='inner textarea' placeholder={containerTypeFullNames[containerType]}></textarea>;
     }
   }
 });
