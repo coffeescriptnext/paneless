@@ -1,6 +1,9 @@
-var containerTypeFullNames = {'js': 'Javascript',
-                              'html': 'HTML',
-                              'css': 'CSS',}
+var containerTypeFullNames = {
+  'js': 'Javascript',
+  'html': 'HTML',
+  'css': 'CSS',
+  'output': 'Output',
+}
 
 var Pane = React.createClass({
   render: function() {
