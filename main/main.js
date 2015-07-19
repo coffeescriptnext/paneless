@@ -26,10 +26,10 @@ var PaneHeader = React.createClass({
   render: function() {
     return (
       <div className='pane-header'>
-        <select>
+        <select value={this.props.paneType}>
           {Object.keys(paneTypeFullNames).map(function(k) {
             return (
-              <option value={k} selected={k === this.props.paneType}>
+              <option value={k}>
                 {paneTypeFullNames[k]}
               </option>
             );
