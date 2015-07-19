@@ -1,4 +1,4 @@
-var containerTypeFullNames = {
+var paneTypeFullNames = {
   'js': 'Javascript',
   'html': 'HTML',
   'css': 'CSS',
@@ -7,16 +7,16 @@ var containerTypeFullNames = {
 
 var Pane = React.createClass({
   render: function() {
-    var containerType = this.props.containerType;
+    var paneType = this.props.paneType;
 
-    if (containerType === 'output') {
+    if (paneType === 'output') {
       return (
         <iframe className='pane'/>
       );
     } else {
       return (
         <textarea className='pane textarea'
-                  placeholder={containerTypeFullNames[containerType]} />
+                  placeholder={paneTypeFullNames[paneType]} />
       );
     }
   }
@@ -27,10 +27,10 @@ var PaneHeader = React.createClass({
     return (
       <div className='pane-header'>
         <select>
-          {Object.keys(containerTypeFullNames).map(function(k) {
+          {Object.keys(paneTypeFullNames).map(function(k) {
             return (
-              <option value={k} selected={k === this.props.containerType}>
-                {containerTypeFullNames[k]}
+              <option value={k} selected={k === this.props.paneType}>
+                {paneTypeFullNames[k]}
               </option>
             );
           }, this)}
@@ -42,18 +42,18 @@ var PaneHeader = React.createClass({
 
 var PaneContainer = React.createClass({
   getInitialState: function() {
-    return {containerType: this.props.initContainerType};
+    return {paneType: this.props.initPaneType};
   },
 
   render: function() {
     return (
       <div className='pane-container'>
-        <PaneHeader containerType={this.state.containerType} />
-        <Pane containerType={this.state.containerType} />
+        <PaneHeader paneType={this.state.paneType} />
+        <Pane paneType={this.state.paneType} />
       </div>
     );
   }
 });
 
-React.render(<PaneContainer initContainerType='html' />,
+React.render(<PaneContainer initPaneType='html' />,
   document.body);
