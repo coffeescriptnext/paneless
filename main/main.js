@@ -26,7 +26,7 @@ var PaneHeader = React.createClass({
   render: function() {
     return (
       <div className='pane-header'>
-        <select value={this.props.paneType}>
+        <select value={this.props.paneType} onChange={this.props.onPaneTypeChange}>
           {Object.keys(paneTypeFullNames).map(function(k) {
             return (
               <option value={k}>
@@ -45,10 +45,14 @@ var PaneContainer = React.createClass({
     return {paneType: this.props.initPaneType};
   },
 
+  onPaneTypeChange: function(event) {
+    this.setState({paneType: event.target.value});
+  },
+
   render: function() {
     return (
       <div className='pane-container'>
-        <PaneHeader paneType={this.state.paneType} />
+        <PaneHeader paneType={this.state.paneType} onPaneTypeChange={this.onPaneTypeChange}/>
         <Pane paneType={this.state.paneType} />
       </div>
     );
