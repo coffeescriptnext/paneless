@@ -45,10 +45,6 @@ html, body {
   position: relative;
 }
 
-.close-button {
-  float: right;
-}
-
 .pane .inner.header {
   flex: 0 1 auto;
 
@@ -56,16 +52,8 @@ html, body {
   box-sizing: padding-box;
 }
 
-.plus-sign {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-
-  height: 25%;
-  width: auto;
+.close-button {
+  float: right;
 }
 
 .pane .inner.content {
@@ -79,4 +67,16 @@ html, body {
 .pane textarea.inner.content  {
   font-family: "Lucida Console", "Courier New", Courier, monospace;
   resize: none;
+}
+
+.plus-sign {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  height: 25%;
+  width: auto;
 }
