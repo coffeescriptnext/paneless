@@ -158,12 +158,12 @@ var PaneGrid = React.createClass({
         codeLocation: 'body',
       }, {
         active: true,
-        initType: 'output',
-        codeLocation: '',
+        initType: 'js',
+        codeLocation: 'window.onload',
       }], [{
         active: true,
-        initType: 'html',
-        codeLocation: 'body',
+        initType: 'css',
+        codeLocation: 'head',
       }, {
         active: true,
         initType: 'output',
