@@ -89,7 +89,6 @@ var PaneHeader = React.createClass({
           onCodeLocationChange={this.props.onCodeLocationChange}
         />
         <button
-          className='close-button'
           onClick={this.props.onChangeActive.bind(this.parent, false)}>
             X
         </button>

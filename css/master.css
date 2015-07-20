@@ -52,7 +52,11 @@ html, body {
   box-sizing: padding-box;
 }
 
-.close-button {
+.pane .inner.header select {
+  margin-right: 5px;
+}
+
+.pane .inner.header button {
   float: right;
 }
 
