@@ -29,7 +29,7 @@ var Pane = React.createClass({
     } else {
       return (
         <textarea
-          className='inner content textarea'
+          className='inner content'
           placeholder={paneTypeFullNames[type]}
         />
       );
@@ -149,10 +149,44 @@ var PaneContainer = React.createClass({
   }
 });
 
-React.render(<div className='temp'>
-  <PaneContainer active={true} initType='html' codeLocation='' />
-  <PaneContainer active={false} initType='html' codeLocation='' />
-  <PaneContainer active={false} initType='html' codeLocation='' />
-  <PaneContainer active={true} initType='html' codeLocation='' />
-  </div>,
-  document.body);
+var PaneGrid = React.createClass({
+  getInitialState: function() {
+    return {
+      panes: [[{
+        active: true,
+        initType: 'html',
+        codeLocation: 'body',
+      }, {
+        active: true,
+        initType: 'output',
+        codeLocation: '',
+      }], [{
+        active: true,
+        initType: 'html',
+        codeLocation: 'body',
+      }, {
+        active: true,
+        initType: 'output',
+        codeLocation: '',
+      }]],
+    };
+  },
+
+  render: function() {
+    return (
+      <div className='temp'>
+        {this.state.panes.map(function(row) {
+          return (
+            <div className='temp-row'>
+              {row.map(function(paneProps) {
+                return React.createElement(PaneContainer, paneProps);
+              })}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+});
+
+React.render(<PaneGrid />, document.body);
