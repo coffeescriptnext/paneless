@@ -1,25 +1,3 @@
-var paneTypeFullNames = {
-  'js': 'Javascript',
-  'html': 'HTML',
-  'css': 'CSS',
-  'output': 'Output',
-}
-
-var paneCodeLocations = {
-  'js': {
-    'head': 'Inside a <script> tag in <head>',
-    'window.onload': 'Inside window.onload',
-  },
-  'html': {
-    'body': 'Inside <body>',
-  },
-  'css': {
-    'head': 'Inside a <style> tag in <head>'
-  },
-  'output': {
-  },
-}
-
 var Pane = React.createClass({
   render: function() {
     var type = this.props.type;
@@ -30,7 +8,7 @@ var Pane = React.createClass({
       return (
         <textarea
           className='inner content'
-          placeholder={paneTypeFullNames[type]}
+          placeholder={PANE_TYPE_FULL_NAMES[type]}
         />
       );
     }
@@ -47,10 +25,10 @@ var PaneTypeSelector = React.createClass({
   render: function() {
     return (
       <select value={this.props.type} onChange={this.setType}>
-        {Object.keys(paneTypeFullNames).map(function(k) {
+        {Object.keys(PANE_TYPE_FULL_NAMES).map(function(k) {
           return (
             <option value={k}>
-              {paneTypeFullNames[k]}
+              {PANE_TYPE_FULL_NAMES[k]}
             </option>
           );
         }, this)}
@@ -65,7 +43,7 @@ var PaneCodeLocationSelector = React.createClass({
   },
 
   render: function() {
-    var thisCodeLocations = paneCodeLocations[this.props.type];
+    var thisCodeLocations = PANE_CODE_LOCATIONS[this.props.type];
 
     if (Object.keys(thisCodeLocations).length === 0) {
       return false;
@@ -160,33 +138,7 @@ var PaneContainer = React.createClass({
   }
 });
 
-var gridAttributes = [{
-  row: 0,
-  col: 0,
-  active: true,
-  type: 'html',
-  codeLocation: 'body',
-}, {
-  row: 0,
-  col: 1,
-  active: true,
-  type: 'js',
-  codeLocation: 'window.onload',
-}, {
-  row: 1,
-  col: 0,
-  active: true,
-  type: 'css',
-  codeLocation: 'head',
-}, {
-  row: 1,
-  col: 1,
-  active: true,
-  type: 'output',
-  codeLocation: '',
-}];
-
-var model = new PaneGridModel(2, 2, gridAttributes);
+var model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
 
 var PaneGrid = React.createClass({
   getInitialState: function() {
