@@ -1,4 +1,8 @@
 var Pane = React.createClass({
+  setContent: function(event) {
+    this.props.setContent(event.target.value);
+  },
+
   render: function() {
     var type = this.props.type;
     var content = this.props.content;
@@ -16,6 +20,7 @@ var Pane = React.createClass({
           className='inner content'
           placeholder={PANE_TYPE_FULL_NAMES[type]}
           value={content}
+          onChange={this.setContent}
         />
       );
     }
@@ -113,6 +118,11 @@ var PaneContainer = React.createClass({
     this.props.setCodeLocation(pane.row, pane.col, codeLocation);
   },
 
+  setContent: function(content) {
+    var pane = this.props.pane;
+    this.props.setContent(pane.row, pane.col, content);
+  },
+
   render: function() {
     var pane = this.props.pane;
 
@@ -129,6 +139,7 @@ var PaneContainer = React.createClass({
           <Pane
             type={pane.type}
             content={pane.content}
+            setContent={this.setContent}
           />
         </div>
       );
@@ -195,6 +206,7 @@ var PaneGrid = React.createClass({
                   setActive={this.setActive}
                   setType={this.setType}
                   setCodeLocation={this.setCodeLocation}
+                  setContent={this.setContent}
                 />;
               }, this)}
             </div>

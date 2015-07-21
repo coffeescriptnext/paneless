@@ -12,3 +12,17 @@ function range(lower, upper) {
 
   return result;
 }
+
+function makeHTMLTag(tag, content, attributes) {
+  var attributesString = typeof attributes !== 'undefined' ?
+                         makeAttributesString(attributes) :
+                         '';
+
+  return '<' + tag + ' ' + attributesString + '>' + content + '</' + tag + '>'
+}
+
+function makeAttributesString(attributes) {
+  return Object.keys(attributes).reduce(function(str, key) {
+    return str + key + '="' + attributes[key] + '" ';
+  }, '').trim();
+}
