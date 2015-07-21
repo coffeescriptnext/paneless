@@ -34,6 +34,10 @@ PaneGridModel.prototype.setCodeLocation = function(row, col, codeLocation) {
   this.setProperty(row, col, 'codeLocation', codeLocation);
 };
 
+PaneGridModel.prototype.setContent = function(row, col, content) {
+  this.setProperty(row, col, 'content', content);
+};
+
 PaneGridModel.prototype.addRow = function(rowIndex) {
   this.grid = this.grid.forEach(function(pane) {
     if (pane.row >= rowIndex) {

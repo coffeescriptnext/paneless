@@ -176,6 +176,11 @@ var PaneGrid = React.createClass({
     this.updateState();
   },
 
+  setContent: function(row, col, content) {
+    model.setContent(row, col, content);
+    this.updateState();
+  },
+
   render: function() {
     var model = this.state.model;
 
