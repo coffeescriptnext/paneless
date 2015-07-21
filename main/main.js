@@ -38,9 +38,15 @@ var Pane = React.createClass({
 });
 
 var PaneTypeSelector = React.createClass({
+  setType: function(event) {
+    var type = event.target.value;
+    this.props.setType(type);
+    this.props.setCodeLocation(CODE_LOCATION_DEFAULTS[type]);
+  },
+
   render: function() {
     return (
-      <select value={this.props.type} onChange={this.props.onTypeChange}>
+      <select value={this.props.type} onChange={this.setType}>
         {Object.keys(paneTypeFullNames).map(function(k) {
           return (
             <option value={k}>
@@ -54,6 +60,10 @@ var PaneTypeSelector = React.createClass({
 });
 
 var PaneCodeLocationSelector = React.createClass({
+  setCodeLocation: function(event) {
+    this.props.setCodeLocation(event.target.value);
+  },
+
   render: function() {
     var thisCodeLocations = paneCodeLocations[this.props.type];
 
@@ -61,14 +71,14 @@ var PaneCodeLocationSelector = React.createClass({
       return false;
     } else {
       return (
-        <select value={this.props.codeLocation} onChange={this.props.onCodeLocationChange}>
+        <select value={this.props.codeLocation} onChange={this.setCodeLocation}>
           {Object.keys(thisCodeLocations).map(function(k) {
             return (
               <option value={k}>
                 {thisCodeLocations[k]}
               </option>
             );
-          }, this)}
+          })}
         </select>
       );
     }
@@ -76,20 +86,25 @@ var PaneCodeLocationSelector = React.createClass({
 });
 
 var PaneHeader = React.createClass({
+  setInactive: function() {
+    this.props.setActive(false);
+  },
+
   render: function() {
     return (
       <div className='inner header'>
         <PaneTypeSelector
           type={this.props.type}
-          onTypeChange={this.props.onTypeChange}
+          setType={this.props.setType}
+          setCodeLocation={this.props.setCodeLocation}
         />
         <PaneCodeLocationSelector
           type={this.props.type}
           codeLocation={this.props.codeLocation}
-          onCodeLocationChange={this.props.onCodeLocationChange}
+          setCodeLocation={this.props.setCodeLocation}
         />
         <button
-          onClick={this.props.onChangeActive.bind(this.parent, false)}>
+          onClick={this.setInactive}>
             X
         </button>
       </div>
@@ -98,39 +113,36 @@ var PaneHeader = React.createClass({
 });
 
 var PaneContainer = React.createClass({
-  getInitialState: function() {
-    return {
-      active: this.props.active,
-      type: this.props.initType,
-      codeLocation: this.props.initCodeLocation,
-    };
+  setActive: function(active) {
+    var pane = this.props.pane;
+    this.props.setActive(pane.row, pane.col, active);
   },
 
-  onTypeChange: function(event) {
-    this.setState({type: event.target.value});
+  setType: function(type) {
+    var pane = this.props.pane;
+    this.props.setType(pane.row, pane.col, type);
   },
 
-  onCodeLocationChange: function(event) {
-    this.setState({codeLocation: event.target.value});
-  },
-
-  onChangeActive: function(a) {
-    this.setState({active: a});
+  setCodeLocation: function(codeLocation) {
+    var pane = this.props.pane;
+    this.props.setCodeLocation(pane.row, pane.col, codeLocation);
   },
 
   render: function() {
-    if (this.state.active) {
+    var pane = this.props.pane;
+
+    if (pane.active) {
       return (
         <div className='pane'>
           <PaneHeader
-            type={this.state.type}
-            onTypeChange={this.onTypeChange}
-            codeLocation={this.state.codeLocation}
-            onCodeLocationChange={this.onCodeLocationChange}
-            onChangeActive={this.onChangeActive}
+            type={pane.type}
+            codeLocation={pane.codeLocation}
+            setActive={this.setActive}
+            setType={this.setType}
+            setCodeLocation={this.setCodeLocation}
           />
           <Pane
-            type={this.state.type}
+            type={pane.type}
           />
         </div>
       );
@@ -140,7 +152,7 @@ var PaneContainer = React.createClass({
           <img
             className='plus-sign'
             src='../assets/plus-sign-300-transparent.png'
-            onClick={this.onChangeActive.bind(this, true)}
+            onClick={this.setActive.bind(this, true)}
           />
         </div>
       );
@@ -148,41 +160,81 @@ var PaneContainer = React.createClass({
   }
 });
 
+var gridAttributes = [{
+  row: 0,
+  col: 0,
+  active: true,
+  type: 'html',
+  codeLocation: 'body',
+}, {
+  row: 0,
+  col: 1,
+  active: true,
+  type: 'js',
+  codeLocation: 'window.onload',
+}, {
+  row: 1,
+  col: 0,
+  active: true,
+  type: 'css',
+  codeLocation: 'head',
+}, {
+  row: 1,
+  col: 1,
+  active: true,
+  type: 'output',
+  codeLocation: '',
+}];
+
+var model = new PaneGridModel(2, 2, gridAttributes);
+
 var PaneGrid = React.createClass({
   getInitialState: function() {
     return {
-      panes: [[{
-        active: true,
-        initType: 'html',
-        codeLocation: 'body',
-      }, {
-        active: true,
-        initType: 'js',
-        codeLocation: 'window.onload',
-      }], [{
-        active: true,
-        initType: 'css',
-        codeLocation: 'head',
-      }, {
-        active: true,
-        initType: 'output',
-        codeLocation: '',
-      }]],
+      model: model,
     };
   },
 
+  updateState: function() {
+    this.setState({
+      model: model,
+    });
+  },
+
+  setActive: function(row, col, active) {
+    model.setActive(row, col, active);
+    this.updateState();
+  },
+
+  setType: function(row, col, type) {
+    model.setType(row, col, type);
+    this.updateState();
+  },
+
+  setCodeLocation: function(row, col, codeLocation) {
+    model.setCodeLocation(row, col, codeLocation);
+    this.updateState();
+  },
+
   render: function() {
+    var model = this.state.model;
+
     return (
       <div className='temp'>
-        {this.state.panes.map(function(row) {
+        {range(model.rows).map(function(row) {
           return (
             <div className='temp-row'>
-              {row.map(function(paneProps) {
-                return React.createElement(PaneContainer, paneProps);
-              })}
+              {range(model.cols).map(function(col) {
+                return <PaneContainer
+                  pane={model.findPane(row, col)}
+                  setActive={this.setActive}
+                  setType={this.setType}
+                  setCodeLocation={this.setCodeLocation}
+                />;
+              }, this)}
             </div>
           );
-        })}
+        }, this)}
       </div>
     );
   }

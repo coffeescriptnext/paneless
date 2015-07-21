@@ -18,8 +18,8 @@ PaneGridModel.prototype.findPane = function(row, col) {
   return foundPane;
 };
 
-PaneGridModel.prototype.setProperty = function(row, col, propName, value) {
-  this.findPane(row, col)[propName] = value;
+PaneGridModel.prototype.setProperty = function(row, col, property, value) {
+  this.findPane(row, col)[property] = value;
 };
 
 PaneGridModel.prototype.setActive = function(row, col, active) {
@@ -64,7 +64,7 @@ PaneGridModel.prototype.addCol = function(colIndex) {
 
 PaneGridModel.prototype.removeRow = function(rowIndex) {
   this.grid = this.grid.filter(function(pane) {
-    return pane.row <> rowIndex;
+    return pane.row != rowIndex;
   }).forEach(function(pane) {
     if (pane.row > rowIndex) {
       pane.row -= 1;
@@ -76,7 +76,7 @@ PaneGridModel.prototype.removeRow = function(rowIndex) {
 
 PaneGridModel.prototype.removeCol = function(colIndex) {
   this.grid = this.grid.filter(function(pane) {
-    return pane.col <> colIndex;
+    return pane.col != colIndex;
   }).map(function(pane) {
     if (pane.col > colIndex) {
       pane.col -= 1;
