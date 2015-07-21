@@ -68,7 +68,7 @@ PaneGridModel.prototype.addCol = function(colIndex) {
 
 PaneGridModel.prototype.removeRow = function(rowIndex) {
   this.grid = this.grid.filter(function(pane) {
-    return pane.row != rowIndex;
+    return pane.row !== rowIndex;
   }).forEach(function(pane) {
     if (pane.row > rowIndex) {
       pane.row -= 1;
@@ -80,7 +80,7 @@ PaneGridModel.prototype.removeRow = function(rowIndex) {
 
 PaneGridModel.prototype.removeCol = function(colIndex) {
   this.grid = this.grid.filter(function(pane) {
-    return pane.col != colIndex;
+    return pane.col !== colIndex;
   }).map(function(pane) {
     if (pane.col > colIndex) {
       pane.col -= 1;
