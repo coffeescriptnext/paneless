@@ -192,26 +192,49 @@ var PaneGrid = React.createClass({
     this.updateState();
   },
 
+  addRow: function() {
+    var rowIndex = parseInt(document.getElementById('rowtoadd').value) - 1;
+    model.addRow(rowIndex);
+    this.updateState();
+  },
+
+  removeRow: function() {
+    var rowIndex = parseInt(document.getElementById('rowtoremove').value) - 1;
+    model.removeRow(rowIndex);
+    this.updateState();
+  },
+
   render: function() {
     var model = this.state.model;
 
     return (
-      <div className='temp'>
-        {range(model.rows).map(function(row) {
-          return (
-            <div className='temp-row'>
-              {range(model.cols).map(function(col) {
-                return <PaneContainer
-                  pane={model.findPane(row, col)}
-                  setActive={this.setActive}
-                  setType={this.setType}
-                  setCodeLocation={this.setCodeLocation}
-                  setContent={this.setContent}
-                />;
-              }, this)}
-            </div>
-          );
-        }, this)}
+      <div style={{height: '100%'}}>
+        <div className='temp'>
+          {range(model.rows).map(function(row) {
+            return (
+              <div className='temp-row'>
+                {range(model.cols).map(function(col) {
+                  return <PaneContainer
+                    pane={model.findPane(row, col)}
+                    setActive={this.setActive}
+                    setType={this.setType}
+                    setCodeLocation={this.setCodeLocation}
+                    setContent={this.setContent}
+                  />;
+                }, this)}
+              </div>
+            );
+          }, this)}
+        </div>
+        <div>
+          Add row before row:
+          <input type="text" id="rowtoadd"></input>
+          <button onClick={this.addRow}>Add</button>
+          <br />
+          Remove row:
+          <input type="text" id="rowtoremove"></input>
+          <button onClick={this.removeRow}>Remove</button>
+        </div>
       </div>
     );
   }

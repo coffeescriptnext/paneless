@@ -97,21 +97,21 @@ PaneGridModel.prototype.getOutputContent = function() {
 };
 
 PaneGridModel.prototype.addRow = function(rowIndex) {
-  this.grid = this.grid.forEach(function(pane) {
+  this.grid.forEach(function(pane) {
     if (pane.row >= rowIndex) {
       pane.row += 1;
     }
   });
 
   for (var i = 0; i < this.cols; i++) {
-    this.grid.push(new Pane({row: rowIndex, col: i}));
+    this.grid.push(new PaneModel({row: rowIndex, col: i}));
   }
 
   this.rows += 1;
 };
 
 PaneGridModel.prototype.addCol = function(colIndex) {
-  this.grid = this.grid.forEach(function(pane) {
+  this.grid.forEach(function(pane) {
     if (pane.col >= colIndex) {
       pane.col += 1;
     }
@@ -127,10 +127,11 @@ PaneGridModel.prototype.addCol = function(colIndex) {
 PaneGridModel.prototype.removeRow = function(rowIndex) {
   this.grid = this.grid.filter(function(pane) {
     return pane.row !== rowIndex;
-  }).forEach(function(pane) {
+  }).map(function(pane) {
     if (pane.row > rowIndex) {
       pane.row -= 1;
     }
+    return pane;
   });
 
   this.rows -= 1;
@@ -143,7 +144,6 @@ PaneGridModel.prototype.removeCol = function(colIndex) {
     if (pane.col > colIndex) {
       pane.col -= 1;
     }
-
     return pane;
   });
 
