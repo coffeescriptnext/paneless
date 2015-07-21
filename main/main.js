@@ -1,14 +1,21 @@
 var Pane = React.createClass({
   render: function() {
     var type = this.props.type;
+    var content = this.props.content;
 
     if (type === 'output') {
-      return <iframe className='inner content' />;
+      return (
+        <iframe
+          className='inner content'
+          srcDoc={content}
+        />
+      );
     } else {
       return (
         <textarea
           className='inner content'
           placeholder={PANE_TYPE_FULL_NAMES[type]}
+          value={content}
         />
       );
     }
@@ -121,6 +128,7 @@ var PaneContainer = React.createClass({
           />
           <Pane
             type={pane.type}
+            content={pane.content}
           />
         </div>
       );
