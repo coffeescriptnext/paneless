@@ -1,7 +1,7 @@
 var PaneGridModel = function(rows, cols, grid) {
   this.rows = rows;
   this.cols = cols;
-  this.grid = grid;
+  this.grid = grid.map(function(pane) {return new PaneModel(pane)});
 };
 
 PaneGridModel.prototype.findPane = function(row, col) {
