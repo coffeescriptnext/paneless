@@ -19,7 +19,9 @@ PaneGridModel.prototype.findPane = function(row, col) {
 };
 
 PaneGridModel.prototype.setProperty = function(row, col, property, value) {
-  this.findPane(row, col)[property] = value;
+  var thisPane = this.findPane(row, col);
+  thisPane[property] = value;
+  return thisPane;
 };
 
 PaneGridModel.prototype.setActive = function(row, col, active) {
@@ -28,9 +30,7 @@ PaneGridModel.prototype.setActive = function(row, col, active) {
 };
 
 PaneGridModel.prototype.setType = function(row, col, type) {
-  var pane = this.findPane(row, col);
-  pane.type = type;
-
+  var pane = this.setProperty(row, col, 'type', type);
   pane.content = '';
   this.updateOutputs();
 };
@@ -41,8 +41,7 @@ PaneGridModel.prototype.setCodeLocation = function(row, col, codeLocation) {
 };
 
 PaneGridModel.prototype.setContent = function(row, col, content) {
-  var pane = this.findPane(row, col);
-  pane.content = content;
+  var pane = this.setProperty(row, col, 'content', content);
 
   if (pane.type !== 'output') {
     this.updateOutputs();
