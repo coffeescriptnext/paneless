@@ -218,14 +218,14 @@ var PaneGrid = React.createClass({
     var model = this.state.model;
 
     return (
-      <div style={{height: '100%'}}>
-        <div className='temp'>
+      <div className='wrapper'>
+        <div className='pane-container'>
           {model.cols > 1 ? (
-            <div className='temp-row coladder'>
-              <div className='pane rowadder' />
+            <div className='pane-row adder'>
+              <div className='pane adder row' />
               {range(model.cols).map(function(col) {
                 return (
-                  <div className='coladderpane'>
+                  <div className='pane adder col'>
                     <img
                       className='plus-sign'
                       src='../assets/minus-sign-300-transparent.png'
@@ -238,9 +238,9 @@ var PaneGrid = React.createClass({
           ) : false}
           {range(model.rows).map(function(row) {
             return (
-              <div className='temp-row'>
+              <div className='pane-row'>
                 {model.rows > 1 ? (
-                  <div className='pane rowadder'>
+                  <div className='pane adder row'>
                     <img
                       className='plus-sign'
                       src='../assets/minus-sign-300-transparent.png'

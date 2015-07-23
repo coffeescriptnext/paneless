@@ -4,10 +4,14 @@ html, body {
   margin: 0;
 }
 
-.temp {
+.wrapper {
   height: 100%;
   width: 100%;
-  margin: 0;
+}
+
+.pane-container {
+  height: 100%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -17,7 +21,7 @@ html, body {
   box-sizing: padding-box;
 }
 
-.temp-row {
+.pane-row {
   flex: 1 1 auto;
 
   height: 100%;
@@ -26,27 +30,8 @@ html, body {
   flex-direction: row;
 }
 
-.temp-row.coladder {
+.pane-row.adder {
   flex: 0 0 60px;
-}
-
-.coladderpane {
-  flex: 1 1 auto;
-
-  width: 100%;
-
-  position: relative;
-
-  margin-top: 10px;
-  margin-left: 10px;
-
-  /*background-color: #FF0;
-  background-clip: content-box;*/
-}
-
-.coladderpane .plus-sign {
-  height: 100%;
-  width: auto;
 }
 
 .pane {
@@ -61,18 +46,23 @@ html, body {
   margin-left: 10px;
 }
 
-.pane.rowadder {
-  flex: 0 0 50px;
-
+.pane.adder {
   position: relative;
-
-  /*background-color: #FF0;
-  background-clip: content-box;*/
+  display: block;
 }
 
-.pane.rowadder .plus-sign {
+.pane.adder.row {
+  flex: 0 0 50px;
+}
+
+.pane.adder.row .plus-sign {
   width: 100%;
   height: auto;
+}
+
+.pane.adder.col .plus-sign {
+  height: 100%;
+  width: auto;
 }
 
 .pane.inactive {
@@ -81,11 +71,15 @@ html, body {
   position: relative;
 }
 
+.pane.inactive .plus-sign {
+  height: 25%;
+  width: auto;
+}
+
 .pane .inner.header {
   flex: 0 1 auto;
 
-  padding-bottom: 5px;
-  box-sizing: padding-box;
+  margin-bottom: 5px;
 }
 
 .pane .inner.header select {
@@ -101,7 +95,6 @@ html, body {
 
   border: none;
   box-shadow: inset 0 1px 3px #444444;
-  box-sizing: border-box;
 }
 
 .pane textarea.inner.content  {
@@ -119,7 +112,4 @@ html, body {
   left: 0;
   right: 0;
   margin: auto;
-
-  height: 25%;
-  width: auto;
 }
