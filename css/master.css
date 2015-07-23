@@ -26,6 +26,29 @@ html, body {
   flex-direction: row;
 }
 
+.temp-row.coladder {
+  flex: 0 0 60px;
+}
+
+.coladderpane {
+  flex: 1 1 auto;
+
+  width: 100%;
+
+  position: relative;
+
+  margin-top: 10px;
+  margin-left: 10px;
+
+  /*background-color: #FF0;
+  background-clip: content-box;*/
+}
+
+.coladderpane .plus-sign {
+  height: 100%;
+  width: auto;
+}
+
 .pane {
   flex: 1 1 auto;
 
@@ -34,9 +57,22 @@ html, body {
   display: flex;
   flex-flow: column;
 
-  padding-top: 10px;
-  padding-left: 10px;
-  box-sizing: padding-box;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.pane.rowadder {
+  flex: 0 0 50px;
+
+  position: relative;
+
+  /*background-color: #FF0;
+  background-clip: content-box;*/
+}
+
+.pane.rowadder .plus-sign {
+  width: 100%;
+  height: auto;
 }
 
 .pane.inactive {
@@ -70,6 +106,9 @@ html, body {
 
 .pane textarea.inner.content  {
   font-family: "Lucida Console", "Courier New", Courier, monospace;
+
+  overflow-y: scroll;
+  white-space: pre;
   resize: none;
 }
 

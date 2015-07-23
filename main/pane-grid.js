@@ -118,7 +118,7 @@ PaneGridModel.prototype.addCol = function(colIndex) {
   });
 
   for (var i = 0; i < this.rows; i++) {
-    this.grid.push(new Pane({row: i, col: colIndex}));
+    this.grid.push(new PaneModel({row: i, col: colIndex}));
   }
 
   this.cols += 1;

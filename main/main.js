@@ -198,9 +198,19 @@ var PaneGrid = React.createClass({
     this.updateState();
   },
 
-  removeRow: function() {
-    var rowIndex = parseInt(document.getElementById('rowtoremove').value) - 1;
+  removeRow: function(rowIndex) {
     model.removeRow(rowIndex);
+    this.updateState();
+  },
+
+  addCol: function() {
+    var colIndex = parseInt(document.getElementById('coltoadd').value) - 1;
+    model.addCol(colIndex);
+    this.updateState();
+  },
+
+  removeCol: function(colIndex) {
+    model.removeCol(colIndex);
     this.updateState();
   },
 
@@ -210,9 +220,34 @@ var PaneGrid = React.createClass({
     return (
       <div style={{height: '100%'}}>
         <div className='temp'>
+          {model.cols > 1 ? (
+            <div className='temp-row coladder'>
+              <div className='pane rowadder' />
+              {range(model.cols).map(function(col) {
+                return (
+                  <div className='coladderpane'>
+                    <img
+                      className='plus-sign'
+                      src='../assets/minus-sign-300-transparent.png'
+                      onClick={this.removeCol.bind(this, col)}
+                    />
+                  </div>
+                );
+              }, this)}
+            </div>
+          ) : false}
           {range(model.rows).map(function(row) {
             return (
               <div className='temp-row'>
+                {model.rows > 1 ? (
+                  <div className='pane rowadder'>
+                    <img
+                      className='plus-sign'
+                      src='../assets/minus-sign-300-transparent.png'
+                      onClick={this.removeRow.bind(this, row)}
+                    />
+                  </div>
+                ) : false}
                 {range(model.cols).map(function(col) {
                   return <PaneContainer
                     pane={model.findPane(row, col)}
@@ -231,9 +266,9 @@ var PaneGrid = React.createClass({
           <input type="text" id="rowtoadd"></input>
           <button onClick={this.addRow}>Add</button>
           <br />
-          Remove row:
-          <input type="text" id="rowtoremove"></input>
-          <button onClick={this.removeRow}>Remove</button>
+          Add column before column:
+          <input type="text" id="coltoadd"></input>
+          <button onClick={this.addCol}>Add</button>
         </div>
       </div>
     );
