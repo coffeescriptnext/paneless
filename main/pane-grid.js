@@ -1,25 +1,19 @@
 var PaneGridModel = function(rows, cols, grid) {
   this.rows = rows;
   this.cols = cols;
-  this.grid = grid.map(function(pane) {return new PaneModel(pane)});
+  this.grid = grid.map(function(row) { row
+    return row.map(function(attributes) {
+      return new PaneModel(attributes);
+    });
+  });
 };
 
 PaneGridModel.prototype.findPane = function(row, col) {
-  var foundPane;
-
-  for (var i = 0; i < this.grid.length; i++) {
-    var thisPane = this.grid[i];
-
-    if (thisPane.row === row && thisPane.col === col) {
-      foundPane = thisPane;
-    }
-  }
-
-  return foundPane;
+  return this.grid[row][col];
 };
 
 PaneGridModel.prototype.setProperty = function(row, col, property, value) {
-  var thisPane = this.findPane(row, col);
+  var thisPane = this.grid[row][col];
   thisPane[property] = value;
   return thisPane;
 };
@@ -51,10 +45,12 @@ PaneGridModel.prototype.setContent = function(row, col, content) {
 PaneGridModel.prototype.updateOutputs = function() {
   var outputContent = this.getOutputContent();
 
-  this.grid.forEach(function(pane) {
-    if (pane.type === 'output') {
-      pane.content = outputContent;
-    }
+  this.grid.forEach(function(row) {
+    row.forEach(function(pane) {
+      if (pane.type === 'output') {
+        pane.content = outputContent;
+      }
+    });
   });
 };
 
@@ -62,89 +58,69 @@ PaneGridModel.prototype.getOutputContent = function() {
   var headContent = '';
   var bodyContent = '';
 
-  this.grid.forEach(function(pane) {
-    if (pane.active) {
-      switch (pane.type) {
-        case 'html':
-          switch (pane.codeLocation) {
-            case 'body':
-              bodyContent += pane.content;
-              break;
-          }
-          break;
-        case 'css':
-          switch (pane.codeLocation) {
-            case 'head':
-              headContent += makeHTMLTag('style', pane.content);
-              break;
-          }
-          break;
-        case 'js':
-          switch (pane.codeLocation) {
-            case 'head':
-              headContent += makeHTMLTag('script', pane.content);
-              break;
-            case 'window.onload':
-              headContent += makeHTMLTag('script', pane.content);
-              break;
-          }
-          break;
+  this.grid.forEach(function(row) {
+    row.forEach(function(pane) {
+      if (pane.active) {
+        switch (pane.type) {
+          case 'html':
+            switch (pane.codeLocation) {
+              case 'body':
+                bodyContent += pane.content;
+                break;
+            }
+            break;
+          case 'css':
+            switch (pane.codeLocation) {
+              case 'head':
+                headContent += makeHTMLTag('style', pane.content);
+                break;
+            }
+            break;
+          case 'js':
+            switch (pane.codeLocation) {
+              case 'head':
+                headContent += makeHTMLTag('script', pane.content);
+                break;
+              case 'window.onload':
+                headContent += makeHTMLTag('script', pane.content);
+                break;
+            }
+            break;
+        }
       }
-    }
+    });
   });
 
   return makeHTMLTag('head', headContent) + makeHTMLTag('body', bodyContent);
 };
 
 PaneGridModel.prototype.addRow = function(rowIndex) {
-  this.grid.forEach(function(pane) {
-    if (pane.row >= rowIndex) {
-      pane.row += 1;
-    }
+  var newRow = range(this.cols).map(function(i) {
+    return new PaneModel();
   });
 
-  for (var i = 0; i < this.cols; i++) {
-    this.grid.push(new PaneModel({row: rowIndex, col: i}));
-  }
+  this.grid.splice(rowIndex, 0, newRow);
 
   this.rows += 1;
 };
 
 PaneGridModel.prototype.addCol = function(colIndex) {
-  this.grid.forEach(function(pane) {
-    if (pane.col >= colIndex) {
-      pane.col += 1;
-    }
+  this.grid.forEach(function(row) {
+    row.splice(colIndex, 0, new PaneModel());
   });
-
-  for (var i = 0; i < this.rows; i++) {
-    this.grid.push(new PaneModel({row: i, col: colIndex}));
-  }
 
   this.cols += 1;
 };
 
 PaneGridModel.prototype.removeRow = function(rowIndex) {
-  this.grid = this.grid.filter(function(pane) {
-    return pane.row !== rowIndex;
-  }).map(function(pane) {
-    if (pane.row > rowIndex) {
-      pane.row -= 1;
-    }
-    return pane;
-  });
+  this.grid.splice(rowIndex, 1);
 
   this.rows -= 1;
 };
 
 PaneGridModel.prototype.removeCol = function(colIndex) {
-  this.grid = this.grid.filter(function(pane) {
-    return pane.col !== colIndex;
-  }).map(function(pane) {
-    if (pane.col > colIndex) {
-      pane.col -= 1;
-    }
-    return pane;
+  this.grid.forEach(function(row) {
+    row.splice(colIndex, 1);
   });
 
   this.cols -= 1;

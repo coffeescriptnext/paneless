@@ -1,6 +1,7 @@
 var PaneModel = function(attributes) {
-  this.row = attributes.row;
-  this.col = attributes.col;
+  if (typeof attributes === 'undefined') {
+    attributes = PANE_DEFAULTS;
+  }
 
   for (var key in PANE_DEFAULTS) {
     this[key] = attributes[key] || PANE_DEFAULTS[key];

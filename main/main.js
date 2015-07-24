@@ -104,23 +104,19 @@ var PaneHeader = React.createClass({
 
 var PaneContainer = React.createClass({
   setActive: function(active) {
-    var pane = this.props.pane;
-    this.props.setActive(pane.row, pane.col, active);
+    this.props.setActive(this.props.row, this.props.col, active);
   },
 
   setType: function(type) {
-    var pane = this.props.pane;
-    this.props.setType(pane.row, pane.col, type);
+    this.props.setType(this.props.row, this.props.col, type);
   },
 
   setCodeLocation: function(codeLocation) {
-    var pane = this.props.pane;
-    this.props.setCodeLocation(pane.row, pane.col, codeLocation);
+    this.props.setCodeLocation(this.props.row, this.props.col, codeLocation);
   },
 
   setContent: function(content) {
-    var pane = this.props.pane;
-    this.props.setContent(pane.row, pane.col, content);
+    this.props.setContent(this.props.row, this.props.col, content);
   },
 
   render: function() {
@@ -250,6 +246,8 @@ var PaneGrid = React.createClass({
                 ) : false}
                 {range(model.cols).map(function(col) {
                   return <PaneContainer
+                    row={row}
+                    col={col}
                     pane={model.findPane(row, col)}
                     setActive={this.setActive}
                     setType={this.setType}
