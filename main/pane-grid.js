@@ -82,7 +82,8 @@ PaneGridModel.prototype.getOutputContent = function() {
                 headContent += makeHTMLTag('script', pane.content);
                 break;
               case 'window.onload':
-                headContent += makeHTMLTag('script', pane.content);
+                headContent += makeHTMLTag('script',
+                  'window.onload = ' + pane.content);
                 break;
             }
             break;
