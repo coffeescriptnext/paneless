@@ -102,6 +102,8 @@ PaneGridModel.prototype.addRow = function(rowIndex) {
   this.grid.splice(rowIndex, 0, newRow);
 
   this.rows += 1;
+
+  this.updateOutputs();
 };
 
 PaneGridModel.prototype.addCol = function(colIndex) {
@@ -110,12 +112,16 @@ PaneGridModel.prototype.addCol = function(colIndex) {
   });
 
   this.cols += 1;
+
+  this.updateOutputs();
 };
 
 PaneGridModel.prototype.removeRow = function(rowIndex) {
   this.grid.splice(rowIndex, 1);
 
   this.rows -= 1;
+
+  this.updateOutputs();
 };
 
 PaneGridModel.prototype.removeCol = function(colIndex) {
@@ -124,4 +130,6 @@ PaneGridModel.prototype.removeCol = function(colIndex) {
   });
 
   this.cols -= 1;
+
+  this.updateOutputs();
 };
