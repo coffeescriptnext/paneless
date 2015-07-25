@@ -144,7 +144,7 @@ var PaneContainer = React.createClass({
         <div className='pane inactive'>
           <img
             className='plus-sign'
-            src='../assets/plus-sign-300-transparent.png'
+            src='assets/plus-sign-300-transparent.png'
             onClick={this.setActive.bind(this, true)}
           />
         </div>
@@ -224,7 +224,7 @@ var PaneGrid = React.createClass({
                   <div className='pane adder col'>
                     <img
                       className='plus-sign'
-                      src='../assets/minus-sign-300-transparent.png'
+                      src='assets/minus-sign-300-transparent.png'
                       onClick={this.removeCol.bind(this, col)}
                     />
                   </div>
@@ -239,7 +239,7 @@ var PaneGrid = React.createClass({
                   <div className='pane adder row'>
                     <img
                       className='plus-sign'
-                      src='../assets/minus-sign-300-transparent.png'
+                      src='assets/minus-sign-300-transparent.png'
                       onClick={this.removeRow.bind(this, row)}
                     />
                   </div>
