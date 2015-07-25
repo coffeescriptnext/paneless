@@ -11,7 +11,7 @@ var PaneModel = function(attributes) {
 var PaneGridModel = function(rows, cols, grid) {
   this.rows = rows;
   this.cols = cols;
-  this.grid = grid.map(function(row) { row
+  this.grid = grid.map(function(row) {
     return row.map(function(attributes) {
       return new PaneModel(attributes);
     });
