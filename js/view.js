@@ -154,43 +154,43 @@ var PaneContainer = React.createClass({
   }
 });
 
-var PaneRow = React.createClass({
+var RowColumnRemover = React.createClass({
   render: function() {
-    var isAdderRow = this.props.isAdderRow;
-
     return (
-      <div className={'pane-row' + (isAdderRow ? ' adder' : '')}>
+      <div className={'pane adder ' + this.props.type}>
+        {this.props.button ? (
+          <button
+            className='plus-minus'
+            onClick={this.props.remove}
+          >
+            -
+          </button>
+        ) : false}
+      </div>
+    );
+  }
+});
+
+var ColumnRemoverRow = React.createClass({
+  removeCol: function(col) {
+    this.props.removeCol(col);
+  },
+
+  render: function() {
+    return (
+      <div className={'pane-row adder'}>
         {this.props.rows > 1 ? (
-          <div className='pane adder row'>
-            {isAdderRow ? false : (
-              <button
-                className='plus-minus'
-                onClick={this.props.removeRow}
-              >
-                -
-              </button>
-            )}
-          </div>
+          <RowColumnRemover
+            type='row'
+            button={false}
+          />
         ) : false}
         {range(model.cols).map(function(col) {
-          return isAdderRow ? (
-            <div className='pane adder col'>
-              <button
-                className='plus-minus'
-                onClick={function() {this.props.removeCol(col)}.bind(this)}
-              >
-                -
-              </button>
-            </div>
-          ) : (
-            <PaneContainer
-              row={this.props.row}
-              col={col}
-              pane={model.grid[this.props.row][col]}
-              setActive={this.setActive}
-              setType={this.setType}
-              setCodeLocation={this.setCodeLocation}
-              setContent={this.setContent}
+          return (
+            <RowColumnRemover
+              type='col'
+              button={true}
+              remove={this.removeCol.bind(this, col)}
             />
           );
         }, this)}
@@ -269,8 +269,7 @@ var PaneGrid = React.createClass({
       <div className='wrapper'>
         <div className='pane-container'>
           {model.cols > 1 ? (
-            <PaneRow
-              isAdderRow={true}
+            <ColumnRemoverRow
               rows={model.rows}
               removeCol={this.removeCol}
             />
@@ -279,14 +278,11 @@ var PaneGrid = React.createClass({
             return (
               <div className='pane-row'>
                 {model.rows > 1 ? (
-                  <div className='pane adder row'>
-                    <button
-                      className='plus-minus'
-                      onClick={this.removeRow.bind(this, row)}
-                    >
-                      -
-                    </button>
-                  </div>
+                  <RowColumnRemover
+                    type='row'
+                    button={true}
+                    remove={this.removeRow.bind(this, row)}
+                  />
                 ) : false}
                 {range(model.cols).map(function(col) {
                   return <PaneContainer
