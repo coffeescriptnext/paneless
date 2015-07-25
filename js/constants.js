@@ -1,3 +1,6 @@
+// Time in milliseconds to wait after the user stops typing to update the UI.
+var TYPING_TIMEOUT = 250;
+
 // Values for the default pane type. Used when adding new rows / columns.
 var PANE_DEFAULTS = {
   active: false,

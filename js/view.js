@@ -19,7 +19,7 @@ var Pane = React.createClass({
         <textarea
           className='inner content'
           placeholder={PANE_TYPE_FULL_NAMES[type]}
-          value={content}
+          defaultValue={content}
           onChange={this.setContent}
         />
       );
@@ -185,7 +185,13 @@ var PaneGrid = React.createClass({
 
   setContent: function(row, col, content) {
     model.setContent(row, col, content);
-    this.updateState();
+
+    var timer = this.inputTimer;
+
+    if (typeof timer !== 'undefined') {
+      clearTimeout(timer);
+    }
+    this.inputTimer = setTimeout(this.updateState, TYPING_TIMEOUT);
   },
 
   addRow: function() {
