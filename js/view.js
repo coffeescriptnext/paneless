@@ -179,7 +179,7 @@ var ColumnRemoverRow = React.createClass({
   render: function() {
     return (
       <div className={'pane-row adder'}>
-        {this.props.rows > 1 ? (
+        {this.props.moreThanOneRow ? (
           <RowColumnRemover
             type='row'
             button={false}
@@ -191,6 +191,35 @@ var ColumnRemoverRow = React.createClass({
               type='col'
               button={true}
               remove={this.removeCol.bind(this, col)}
+            />
+          );
+        }, this)}
+      </div>
+    );
+  }
+});
+
+var PaneRow = React.createClass({
+  render: function() {
+    return (
+      <div className='pane-row'>
+        {this.props.moreThanOneRow ? (
+          <RowColumnRemover
+            type='row'
+            button={true}
+            remove={this.props.removeRow}
+          />
+        ) : false}
+        {range(this.props.paneRow.length).map(function(col) {
+          return (
+            <PaneContainer
+              row={this.props.row}
+              col={col}
+              pane={this.props.paneRow[col]}
+              setActive={this.props.setActive}
+              setType={this.props.setType}
+              setCodeLocation={this.props.setCodeLocation}
+              setContent={this.props.setContent}
             />
           );
         }, this)}
@@ -270,32 +299,22 @@ var PaneGrid = React.createClass({
         <div className='pane-container'>
           {model.cols > 1 ? (
             <ColumnRemoverRow
-              rows={model.rows}
+              moreThanOneRow={model.rows > 1}
               removeCol={this.removeCol}
             />
           ) : false}
           {range(model.rows).map(function(row) {
             return (
-              <div className='pane-row'>
-                {model.rows > 1 ? (
-                  <RowColumnRemover
-                    type='row'
-                    button={true}
-                    remove={this.removeRow.bind(this, row)}
-                  />
-                ) : false}
-                {range(model.cols).map(function(col) {
-                  return <PaneContainer
-                    row={row}
-                    col={col}
-                    pane={model.findPane(row, col)}
-                    setActive={this.setActive}
-                    setType={this.setType}
-                    setCodeLocation={this.setCodeLocation}
-                    setContent={this.setContent}
-                  />;
-                }, this)}
-              </div>
+              <PaneRow
+                row={row}
+                paneRow={model.grid[row]}
+                moreThanOneRow={model.rows > 1}
+                removeRow={this.removeRow.bind(this, row)}
+                setActive={this.setActive}
+                setType={this.setType}
+                setCodeLocation={this.setCodeLocation}
+                setContent={this.setContent}
+              />
             );
           }, this)}
         </div>
