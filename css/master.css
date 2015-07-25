@@ -55,25 +55,10 @@ html, body {
   flex: 0 0 50px;
 }
 
-.pane.adder.row .plus-sign {
-  width: 100%;
-  height: auto;
-}
-
-.pane.adder.col .plus-sign {
-  height: 100%;
-  width: auto;
-}
-
 .pane.inactive {
   background: transparent repeating-linear-gradient(45deg, #FFF, #FFF 17px, #AAA 17px, #AAA 20px) repeat scroll 0% 0%;
   background-clip: content-box;
   position: relative;
-}
-
-.pane.inactive .plus-sign {
-  height: 25%;
-  width: auto;
 }
 
 .pane .inner.header {
@@ -105,11 +90,9 @@ html, body {
   resize: none;
 }
 
-.plus-sign {
+button.plus-minus {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

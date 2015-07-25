@@ -142,11 +142,12 @@ var PaneContainer = React.createClass({
     } else {
       return (
         <div className='pane inactive'>
-          <img
-            className='plus-sign'
-            src='assets/plus-sign-300-transparent.png'
+          <button
+            className='plus-minus'
             onClick={this.setActive.bind(this, true)}
-          />
+          >
+            +
+          </button>
         </div>
       );
     }
@@ -228,11 +229,12 @@ var PaneGrid = React.createClass({
               {range(model.cols).map(function(col) {
                 return (
                   <div className='pane adder col'>
-                    <img
-                      className='plus-sign'
-                      src='assets/minus-sign-300-transparent.png'
+                    <button
+                      className='plus-minus'
                       onClick={this.removeCol.bind(this, col)}
-                    />
+                    >
+                      -
+                    </button>
                   </div>
                 );
               }, this)}
@@ -243,11 +245,12 @@ var PaneGrid = React.createClass({
               <div className='pane-row'>
                 {model.rows > 1 ? (
                   <div className='pane adder row'>
-                    <img
-                      className='plus-sign'
-                      src='assets/minus-sign-300-transparent.png'
+                    <button
+                      className='plus-minus'
                       onClick={this.removeRow.bind(this, row)}
-                    />
+                    >
+                      -
+                    </button>
                   </div>
                 ) : false}
                 {range(model.cols).map(function(col) {
