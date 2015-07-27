@@ -11,12 +11,16 @@ html, body {
   display: flex;
   flex-direction: column;
 
+  /* Padding to match 10px top and left margins on panes. */
   padding-right: 10px;
   padding-bottom: 10px;
+
+  /* Make sure pane container does not overflow from the body element. */
   box-sizing: padding-box;
 }
 
 .pane-row {
+  /* All rows (except column-adder row) will have the same height. */
   flex: 1 1 auto;
 
   height: 100%;
@@ -26,10 +30,12 @@ html, body {
 }
 
 .pane-row.adder {
+  /* Lock height at 25px + 10px margin. */
   flex: 0 0 35px;
 }
 
 .pane {
+  /* All panes (except row-adder panes) will have the same width. */
   flex: 1 1 auto;
 
   width: 100%;
@@ -42,25 +48,30 @@ html, body {
 }
 
 .pane.adder {
+  /* The buttons inside the adder pane are positioned absolutely. */
   position: relative;
   display: block;
 }
 
 .pane.adder.col {
+  /* Lock width to 25px. */
   flex: 0 0 25px;
 }
 
 .pane.inactive {
   background: transparent repeating-linear-gradient(45deg, #FFF, #FFF 17px, #AAA 17px, #AAA 20px) repeat scroll 0% 0%;
   background-clip: content-box;
+  /* The button inside the inactive pane is positioned absolutely. */
   position: relative;
 }
 
 .pane .header {
+  /* Wrap header content. */
   flex: 0 1 auto;
 
   margin-bottom: 5px;
 
+  /* The buttons inside the header are positioned absolutely. */
   position: relative;
 }
 
@@ -69,6 +80,7 @@ html, body {
 }
 
 .pane .content {
+  /* The content will expand to take up all the space left by the header. */
   flex: 1 1 auto;
 
   border: none;
@@ -79,6 +91,7 @@ html, body {
   font-family: "Lucida Console", "Courier New", Courier, monospace;
 
   overflow-y: scroll;
+  /* Preserve whitespace and only wrap on line breaks. */
   white-space: pre;
   resize: none;
 }
