@@ -64,14 +64,12 @@ html, body {
   flex: 0 1 auto;
 
   margin-bottom: 5px;
+
+  position: relative;
 }
 
 .pane .inner.header select {
   margin-right: 5px;
-}
-
-.pane .inner.header button {
-  float: right;
 }
 
 .pane .inner.content {
