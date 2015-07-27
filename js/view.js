@@ -192,13 +192,20 @@ var ColumnRemoverRow = React.createClass({
   },
 
   render: function() {
+    // This empty row removal <div> keeps the column remover buttons in line
+    // with the columns. When there is only one row in the application, it is
+    // not displayed, along with the row removal <div> tags for the other rows.
+    var emptyRowRemover = (
+      <RowColumnRemover
+        type='row'
+        button={false}
+      />
+    );
+
     return (
       <div className={'pane-row adder'}>
         {this.props.moreThanOneRow ? (
-          <RowColumnRemover
-            type='row'
-            button={false}
-          />
+          emptyRowRemover
         ) : false}
         {range(this.props.cols).map(function(col) {
           return (
@@ -217,14 +224,20 @@ var ColumnRemoverRow = React.createClass({
 // Represents one row of panes.
 var PaneRow = React.createClass({
   render: function() {
+    // If the application only has one row, this row removal button will not be
+    // rendered.
+    var rowRemover = (
+      <RowColumnRemover
+        type='row'
+        button={true}
+        remove={this.props.removeRow}
+      />
+    );
+
     return (
       <div className='pane-row'>
         {this.props.moreThanOneRow ? (
-          <RowColumnRemover
-            type='row'
-            button={true}
-            remove={this.props.removeRow}
-          />
+          rowRemover
         ) : false}
         {range(this.props.paneRow.length).map(function(col) {
           return (
