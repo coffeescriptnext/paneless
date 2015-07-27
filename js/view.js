@@ -118,7 +118,7 @@ var PaneHeader = React.createClass({
           setCodeLocation={this.props.setCodeLocation}
         />
         <ButtonWrapper
-          position='right'
+          position='absolute center-y right'
           content='X'
           onClick={this.setInactive}
         />
@@ -164,7 +164,7 @@ var PaneContainer = React.createClass({
       return (
         <div className='pane inactive'>
           <ButtonWrapper
-            position='centered'
+            position='absolute center-x center-y'
             content='+'
             onClick={this.setActive.bind(this, true)}
           />
@@ -179,25 +179,27 @@ var PaneContainer = React.createClass({
 var RowColumnController = React.createClass({
   render: function() {
     var isRow = this.props.orientation === 'row';
+    var beforePos = 'absolute ' + (isRow ? 'center-y left' : 'center-x top');
+    var afterPos = 'absolute ' + (isRow ? 'center-y right' : 'center-x bottom');
 
     return (
       <div className={'pane adder ' + this.props.orientation}>
         {this.props.isFirst ? (
           <ButtonWrapper
-            position={isRow ? 'left' : 'top'}
+            position={beforePos}
             content='+'
             onClick={this.props.addBefore}
           />
         ) : false}
         {this.props.allowRemoval ? (
           <ButtonWrapper
-            position='centered'
+            position='absolute center-x center-y'
             content='-'
             onClick={this.props.remove}
           />
         ) : false}
         <ButtonWrapper
-          position={isRow ? 'right' : 'bottom'}
+          position={afterPos}
           content='+'
           onClick={this.props.addAfter}
         />
