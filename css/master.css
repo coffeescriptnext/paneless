@@ -46,10 +46,6 @@ html, body {
   display: block;
 }
 
-.pane.adder.flex {
-  flex: 0 0 25px;
-}
-
 .pane.adder.col {
   flex: 0 0 25px;
 }

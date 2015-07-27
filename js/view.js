@@ -223,7 +223,7 @@ var ColumnRemoverRow = React.createClass({
     // This empty row removal <div> keeps the column remover buttons in line
     // with the columns.
     var emptyRowRemover = (
-      <div className='pane adder flex' />
+      <div className='pane adder col' />
     );
 
     return (
