@@ -1,3 +1,4 @@
+// Represents the <textarea> or <iframe> tag inside a pane.
 var Pane = React.createClass({
   setContent: function(event) {
     this.props.setContent(event.target.value);
@@ -27,10 +28,13 @@ var Pane = React.createClass({
   }
 });
 
+// Represents the <select> tag that lets the user choose the type of a pane.
 var PaneTypeSelector = React.createClass({
   setType: function(event) {
     var type = event.target.value;
     this.props.setType(type);
+    // Update code location to default for the new type. Otherwise, the current
+    // code location could be invalid for the new type.
     this.props.setCodeLocation(CODE_LOCATION_DEFAULTS[type]);
   },
 
@@ -49,6 +53,8 @@ var PaneTypeSelector = React.createClass({
   }
 });
 
+// Represents the <select> tag that lets the user choose the code location of
+// a pane.
 var PaneCodeLocationSelector = React.createClass({
   setCodeLocation: function(event) {
     this.props.setCodeLocation(event.target.value);
@@ -57,6 +63,8 @@ var PaneCodeLocationSelector = React.createClass({
   render: function() {
     var thisCodeLocations = PANE_CODE_LOCATIONS[this.props.type];
 
+    // If the current pane type has no associated code locations (e.g. an output
+    // pane), do not return an element.
     if (Object.keys(thisCodeLocations).length === 0) {
       return false;
     } else {
@@ -75,6 +83,8 @@ var PaneCodeLocationSelector = React.createClass({
   }
 });
 
+// Represents the header of a pane, which allows the user to change the pane's
+// settings and deactivate it.
 var PaneHeader = React.createClass({
   setInactive: function() {
     this.props.setActive(false);
@@ -102,6 +112,8 @@ var PaneHeader = React.createClass({
   }
 });
 
+// Contains a pane's header and content. If the pane is inactive, allows the
+// user to reactivate the pane.
 var PaneContainer = React.createClass({
   setActive: function(active) {
     this.props.setActive(this.props.row, this.props.col, active);
@@ -154,6 +166,7 @@ var PaneContainer = React.createClass({
   }
 });
 
+// Allows the user to remove the associated row or column.
 var RowColumnRemover = React.createClass({
   render: function() {
     return (
@@ -171,6 +184,8 @@ var RowColumnRemover = React.createClass({
   }
 });
 
+// Represents the row at the top of the screen that contains the column removal
+// buttons for each column.
 var ColumnRemoverRow = React.createClass({
   removeCol: function(col) {
     this.props.removeCol(col);
@@ -199,6 +214,7 @@ var ColumnRemoverRow = React.createClass({
   }
 });
 
+// Represents one row of panes.
 var PaneRow = React.createClass({
   render: function() {
     return (
@@ -228,8 +244,10 @@ var PaneRow = React.createClass({
   }
 });
 
+// The model that the application is based on.
 var model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
 
+// The top-level class for the application's view.
 var PaneGrid = React.createClass({
   getInitialState: function() {
     return {
@@ -237,6 +255,7 @@ var PaneGrid = React.createClass({
     };
   },
 
+  // This function should be called after the model has been updated.
   updateState: function() {
     this.setState({
       model: model,
@@ -258,6 +277,10 @@ var PaneGrid = React.createClass({
     this.updateState();
   },
 
+  // When the user types in one of the <textarea> tags, the application will
+  // wait for TYPING_TIMEOUT seconds before notifying React that the model has
+  // been updated. If the user changes the model in the meantime, the timeout
+  // will be reset.
   setContent: function(row, col, content) {
     model.setContent(row, col, content);
 
@@ -301,6 +324,7 @@ var PaneGrid = React.createClass({
             <ColumnRemoverRow
               cols={model.cols}
               moreThanOneRow={model.rows > 1}
+              cols={model.cols}
               removeCol={this.removeCol}
             />
           ) : false}
@@ -333,4 +357,5 @@ var PaneGrid = React.createClass({
   }
 });
 
+// Render the top-level class of the application.
 React.render(<PaneGrid />, document.body);
