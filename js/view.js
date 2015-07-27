@@ -119,16 +119,10 @@ var PaneContainer = React.createClass({
     this.props.setActive(this.props.row, this.props.col, active);
   },
 
-  setType: function(type) {
-    this.props.setType(this.props.row, this.props.col, type);
-  },
-
-  setCodeLocation: function(codeLocation) {
-    this.props.setCodeLocation(this.props.row, this.props.col, codeLocation);
-  },
-
-  setContent: function(content) {
-    this.props.setContent(this.props.row, this.props.col, content);
+  handleEvent: function(f) {
+    return function(val) {
+      f(this.props.row, this.props.col, val);
+    }.bind(this);
   },
 
   render: function() {
@@ -140,14 +134,14 @@ var PaneContainer = React.createClass({
           <PaneHeader
             type={pane.type}
             codeLocation={pane.codeLocation}
-            setActive={this.setActive}
-            setType={this.setType}
-            setCodeLocation={this.setCodeLocation}
+            setActive={this.handleEvent(this.props.setActive)}
+            setType={this.handleEvent(this.props.setType)}
+            setCodeLocation={this.handleEvent(this.props.setCodeLocation)}
           />
           <Pane
             type={pane.type}
             content={pane.content}
-            setContent={this.setContent}
+            setContent={this.handleEvent(this.props.setContent)}
           />
         </div>
       );
