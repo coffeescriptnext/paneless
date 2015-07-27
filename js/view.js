@@ -304,21 +304,6 @@ var PaneGrid = React.createClass({
     });
   },
 
-  setActive: function(row, col, active) {
-    model.setActive(row, col, active);
-    this.updateState();
-  },
-
-  setType: function(row, col, type) {
-    model.setType(row, col, type);
-    this.updateState();
-  },
-
-  setCodeLocation: function(row, col, codeLocation) {
-    model.setCodeLocation(row, col, codeLocation);
-    this.updateState();
-  },
-
   // When the user types in one of the <textarea> tags, the application will
   // wait for TYPING_TIMEOUT seconds before notifying React that the model has
   // been updated. If the user changes the model in the meantime, the timeout
@@ -334,24 +319,14 @@ var PaneGrid = React.createClass({
     this.inputTimer = setTimeout(this.updateState, TYPING_TIMEOUT);
   },
 
-  addRow: function(rowIndex) {
-    model.addRow(rowIndex);
-    this.updateState();
-  },
-
-  removeRow: function(rowIndex) {
-    model.removeRow(rowIndex);
-    this.updateState();
-  },
-
-  addCol: function(colIndex) {
-    model.addCol(colIndex);
-    this.updateState();
-  },
-
-  removeCol: function(colIndex) {
-    model.removeCol(colIndex);
-    this.updateState();
+  // Returns a function that applies the given arguments to the function fName
+  // of the model, then updates the component's state.
+  callModelFunction: function(fName) {
+    return function() {
+      // Call model's function fName on the given arguments.
+      model[fName].apply(model, arguments);
+      this.updateState();
+    }.bind(this);
   },
 
   render: function() {
@@ -361,8 +336,8 @@ var PaneGrid = React.createClass({
       <div className='pane-container'>
         <ColumnRemoverRow
           cols={model.cols}
-          addCol={this.addCol}
-          removeCol={this.removeCol}
+          addCol={this.callModelFunction('addCol')}
+          removeCol={this.callModelFunction('removeCol')}
         />
         {range(model.rows).map(function(row) {
           return (
@@ -370,12 +345,12 @@ var PaneGrid = React.createClass({
               row={row}
               paneRow={model.grid[row]}
               moreThanOneRow={model.rows > 1}
-              addRowAbove={this.addRow.bind(this, row)}
-              addRowBelow={this.addRow.bind(this, row + 1)}
-              removeRow={this.removeRow.bind(this, row)}
-              setActive={this.setActive}
-              setType={this.setType}
-              setCodeLocation={this.setCodeLocation}
+              addRowAbove={this.callModelFunction('addRow').bind(this, row)}
+              addRowBelow={this.callModelFunction('addRow').bind(this, row + 1)}
+              removeRow={this.callModelFunction('removeRow').bind(this, row)}
+              setActive={this.callModelFunction('setActive')}
+              setType={this.callModelFunction('setType')}
+              setCodeLocation={this.callModelFunction('setCodeLocation')}
               setContent={this.setContent}
             />
           );
