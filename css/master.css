@@ -50,7 +50,6 @@ html, body {
 .pane.adder {
   /* The buttons inside the adder pane are positioned absolutely. */
   position: relative;
-  display: block;
 }
 
 .pane.adder.col {
