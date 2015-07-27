@@ -46,7 +46,7 @@ html, body {
   display: block;
 }
 
-.pane.adder.row {
+.pane.adder.flex {
   flex: 0 0 50px;
 }
 

@@ -174,6 +174,38 @@ var PaneContainer = React.createClass({
   }
 });
 
+// Allows the user to remove the associated row or column, and to add rows or
+// columns before and/or after it.
+var RowColumnController = React.createClass({
+  render: function() {
+    var isRow = this.props.orientation === 'row';
+
+    return (
+      <div className={'pane adder ' + this.props.orientation}>
+        {this.props.isFirst ? (
+          <ButtonWrapper
+            position={isRow ? 'left' : 'top'}
+            content='+'
+            onClick={this.props.addBefore}
+          />
+        ) : false}
+        {this.props.allowRemoval ? (
+          <ButtonWrapper
+            position='centered'
+            content='-'
+            onClick={this.props.remove}
+          />
+        ) : false}
+        <ButtonWrapper
+          position={isRow ? 'right' : 'bottom'}
+          content='+'
+          onClick={this.props.addAfter}
+        />
+      </div>
+    );
+  }
+});
+
 // Represents the row at the top of the screen that contains the column removal
 // buttons for each column.
 var ColumnRemoverRow = React.createClass({
@@ -189,7 +221,7 @@ var ColumnRemoverRow = React.createClass({
     // This empty row removal <div> keeps the column remover buttons in line
     // with the columns.
     var emptyRowRemover = (
-      <div className='pane adder row' />
+      <div className='pane adder flex' />
     );
 
     return (
@@ -197,27 +229,14 @@ var ColumnRemoverRow = React.createClass({
         {emptyRowRemover}
         {range(this.props.cols).map(function(col) {
           return (
-            <div className='pane adder'>
-              {col === 0 ? (
-                <ButtonWrapper
-                  position='left'
-                  content='+'
-                  onClick={this.addCol.bind(this, 0)}
-                />
-              ) : false}
-              {this.props.cols > 1 ? (
-                <ButtonWrapper
-                  position='centered'
-                  content='-'
-                  onClick={this.removeCol.bind(this, col)}
-                />
-              ) : false}
-              <ButtonWrapper
-                position='right'
-                content='+'
-                onClick={this.addCol.bind(this, col + 1)}
-              />
-            </div>
+            <RowColumnController
+              orientation='row'
+              isFirst={col === 0}
+              allowRemoval={this.props.cols > 1}
+              addBefore={this.addCol.bind(this, 0)}
+              addAfter={this.addCol.bind(this, col + 1)}
+              remove={this.removeCol.bind(this, col)}
+            />
           );
         }, this)}
       </div>
@@ -229,27 +248,14 @@ var ColumnRemoverRow = React.createClass({
 var PaneRow = React.createClass({
   render: function() {
     var rowRemover = (
-      <div className='pane adder col'>
-        {this.props.row === 0 ? (
-          <ButtonWrapper
-            position='top'
-            content='+'
-            onClick={this.props.addRowAbove}
-          />
-        ) : false}
-        {this.props.moreThanOneRow ? (
-          <ButtonWrapper
-            position='centered'
-            content='-'
-            onClick={this.props.removeRow}
-          />
-        ) : false}
-        <ButtonWrapper
-          position='bottom'
-          content='+'
-          onClick={this.props.addRowBelow}
-        />
-      </div>
+      <RowColumnController
+        orientation='col'
+        isFirst={this.props.row === 0}
+        allowRemoval={this.props.moreThanOneRow}
+        addBefore={this.props.addRowAbove}
+        addAfter={this.props.addRowBelow}
+        remove={this.props.removeRow}
+      />
     );
 
     return (
