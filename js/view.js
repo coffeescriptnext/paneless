@@ -269,7 +269,14 @@ var PaneGrid = React.createClass({
   },
 
   // This function should be called after the model has been updated.
+  // It clears the timer that is set by setContent, so that the model is not
+  // updated more than once.
   updateState: function() {
+    var timer = this.inputTimer;
+    if (typeof timer !== 'undefined') {
+      clearTimeout(timer);
+    }
+
     this.setState({
       model: model,
     });
