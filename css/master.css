@@ -55,6 +55,10 @@ html, body {
   flex: 0 0 50px;
 }
 
+.pane.adder.col {
+  flex: 0 0 50px;
+}
+
 .pane.inactive {
   background: transparent repeating-linear-gradient(45deg, #FFF, #FFF 17px, #AAA 17px, #AAA 20px) repeat scroll 0% 0%;
   background-clip: content-box;
@@ -90,9 +94,37 @@ html, body {
   resize: none;
 }
 
-button.plus-minus {
+.centered {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }

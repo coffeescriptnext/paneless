@@ -155,7 +155,7 @@ var PaneContainer = React.createClass({
       return (
         <div className='pane inactive'>
           <button
-            className='plus-minus'
+            className='centered'
             onClick={this.setActive.bind(this, true)}
           >
             +
@@ -167,19 +167,15 @@ var PaneContainer = React.createClass({
 });
 
 // Allows the user to remove the associated row or column.
-var RowColumnRemover = React.createClass({
+var AddRemoveButton = React.createClass({
   render: function() {
     return (
-      <div className={'pane adder ' + this.props.type}>
-        {this.props.button ? (
-          <button
-            className='plus-minus'
-            onClick={this.props.remove}
-          >
-            -
-          </button>
-        ) : false}
-      </div>
+      <button
+        className={this.props.position}
+        onClick={this.props.onClick}
+      >
+        {this.props.content}
+      </button>
     );
   }
 });
@@ -187,33 +183,47 @@ var RowColumnRemover = React.createClass({
 // Represents the row at the top of the screen that contains the column removal
 // buttons for each column.
 var ColumnRemoverRow = React.createClass({
+  addCol: function(col) {
+    this.props.addCol(col);
+  },
+
   removeCol: function(col) {
     this.props.removeCol(col);
   },
 
   render: function() {
     // This empty row removal <div> keeps the column remover buttons in line
-    // with the columns. When there is only one row in the application, it is
-    // not displayed, along with the row removal <div> tags for the other rows.
+    // with the columns.
     var emptyRowRemover = (
-      <RowColumnRemover
-        type='row'
-        button={false}
-      />
+      <div className='pane adder row' />
     );
 
     return (
-      <div className={'pane-row adder'}>
-        {this.props.moreThanOneRow ? (
-          emptyRowRemover
-        ) : false}
+      <div className='pane-row adder'>
+        {emptyRowRemover}
         {range(this.props.cols).map(function(col) {
           return (
-            <RowColumnRemover
-              type='col'
-              button={true}
-              remove={this.removeCol.bind(this, col)}
-            />
+            <div className='pane adder'>
+              {col === 0 ? (
+                <AddRemoveButton
+                  position='left'
+                  content='+'
+                  onClick={this.addCol.bind(this, 0)}
+                />
+              ) : false}
+              {this.props.cols > 1 ? (
+                <AddRemoveButton
+                  position='centered'
+                  content='-'
+                  onClick={this.removeCol.bind(this, col)}
+                />
+              ) : false}
+              <AddRemoveButton
+                position='right'
+                content='+'
+                onClick={this.addCol.bind(this, col + 1)}
+              />
+            </div>
           );
         }, this)}
       </div>
@@ -224,21 +234,33 @@ var ColumnRemoverRow = React.createClass({
 // Represents one row of panes.
 var PaneRow = React.createClass({
   render: function() {
-    // If the application only has one row, this row removal button will not be
-    // rendered.
     var rowRemover = (
-      <RowColumnRemover
-        type='row'
-        button={true}
-        remove={this.props.removeRow}
-      />
+      <div className='pane adder col'>
+        {this.props.row === 0 ? (
+          <AddRemoveButton
+            position='top'
+            content='+'
+            onClick={this.props.addRowAbove}
+          />
+        ) : false}
+        {this.props.moreThanOneRow ? (
+          <AddRemoveButton
+            position='centered'
+            content='-'
+            onClick={this.props.removeRow}
+          />
+        ) : false}
+        <AddRemoveButton
+          position='bottom'
+          content='+'
+          onClick={this.props.addRowBelow}
+        />
+      </div>
     );
 
     return (
       <div className='pane-row'>
-        {this.props.moreThanOneRow ? (
-          rowRemover
-        ) : false}
+        {rowRemover}
         {range(this.props.paneRow.length).map(function(col) {
           return (
             <PaneContainer
@@ -312,8 +334,7 @@ var PaneGrid = React.createClass({
     this.inputTimer = setTimeout(this.updateState, TYPING_TIMEOUT);
   },
 
-  addRow: function() {
-    var rowIndex = parseInt(document.getElementById('rowtoadd').value) - 1;
+  addRow: function(rowIndex) {
     model.addRow(rowIndex);
     this.updateState();
   },
@@ -323,8 +344,7 @@ var PaneGrid = React.createClass({
     this.updateState();
   },
 
-  addCol: function() {
-    var colIndex = parseInt(document.getElementById('coltoadd').value) - 1;
+  addCol: function(colIndex) {
     model.addCol(colIndex);
     this.updateState();
   },
@@ -340,20 +360,19 @@ var PaneGrid = React.createClass({
     return (
       <div className='wrapper'>
         <div className='pane-container'>
-          {model.cols > 1 ? (
-            <ColumnRemoverRow
-              cols={model.cols}
-              moreThanOneRow={model.rows > 1}
-              cols={model.cols}
-              removeCol={this.removeCol}
-            />
-          ) : false}
+          <ColumnRemoverRow
+            cols={model.cols}
+            addCol={this.addCol}
+            removeCol={this.removeCol}
+          />
           {range(model.rows).map(function(row) {
             return (
               <PaneRow
                 row={row}
                 paneRow={model.grid[row]}
                 moreThanOneRow={model.rows > 1}
+                addRowAbove={this.addRow.bind(this, row)}
+                addRowBelow={this.addRow.bind(this, row + 1)}
                 removeRow={this.removeRow.bind(this, row)}
                 setActive={this.setActive}
                 setType={this.setType}
@@ -362,15 +381,6 @@ var PaneGrid = React.createClass({
               />
             );
           }, this)}
-        </div>
-        <div>
-          Add row before row:
-          <input type="text" id="rowtoadd"></input>
-          <button onClick={this.addRow}>Add</button>
-          <br />
-          Add column before column:
-          <input type="text" id="coltoadd"></input>
-          <button onClick={this.addCol}>Add</button>
         </div>
       </div>
     );
