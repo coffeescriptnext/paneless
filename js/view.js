@@ -358,30 +358,28 @@ var PaneGrid = React.createClass({
     var model = this.state.model;
 
     return (
-      <div className='wrapper'>
-        <div className='pane-container'>
-          <ColumnRemoverRow
-            cols={model.cols}
-            addCol={this.addCol}
-            removeCol={this.removeCol}
-          />
-          {range(model.rows).map(function(row) {
-            return (
-              <PaneRow
-                row={row}
-                paneRow={model.grid[row]}
-                moreThanOneRow={model.rows > 1}
-                addRowAbove={this.addRow.bind(this, row)}
-                addRowBelow={this.addRow.bind(this, row + 1)}
-                removeRow={this.removeRow.bind(this, row)}
-                setActive={this.setActive}
-                setType={this.setType}
-                setCodeLocation={this.setCodeLocation}
-                setContent={this.setContent}
-              />
-            );
-          }, this)}
-        </div>
+      <div className='pane-container'>
+        <ColumnRemoverRow
+          cols={model.cols}
+          addCol={this.addCol}
+          removeCol={this.removeCol}
+        />
+        {range(model.rows).map(function(row) {
+          return (
+            <PaneRow
+              row={row}
+              paneRow={model.grid[row]}
+              moreThanOneRow={model.rows > 1}
+              addRowAbove={this.addRow.bind(this, row)}
+              addRowBelow={this.addRow.bind(this, row + 1)}
+              removeRow={this.removeRow.bind(this, row)}
+              setActive={this.setActive}
+              setType={this.setType}
+              setCodeLocation={this.setCodeLocation}
+              setContent={this.setContent}
+            />
+          );
+        }, this)}
       </div>
     );
   }
