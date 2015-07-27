@@ -185,7 +185,7 @@ var ColumnRemoverRow = React.createClass({
             button={false}
           />
         ) : false}
-        {range(model.cols).map(function(col) {
+        {range(this.props.cols).map(function(col) {
           return (
             <RowColumnRemover
               type='col'
@@ -299,6 +299,7 @@ var PaneGrid = React.createClass({
         <div className='pane-container'>
           {model.cols > 1 ? (
             <ColumnRemoverRow
+              cols={model.cols}
               moreThanOneRow={model.rows > 1}
               removeCol={this.removeCol}
             />
