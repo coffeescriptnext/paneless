@@ -281,11 +281,52 @@ var PaneRow = React.createClass({
   }
 });
 
+// Represents a 2D grid of panes.
+var PaneGrid = React.createClass({
+  render: function() {
+    var model = this.props.model;
+    var callModelFunction = this.props.callModelFunction;
+
+    return (
+      <div className='pane-container'>
+        <ColumnRemoverRow
+          cols={model.cols}
+          addCol={callModelFunction('addCol')}
+          removeCol={callModelFunction('removeCol')}
+        />
+        {range(model.rows).map(function(row) {
+          return (
+            <PaneRow
+              row={row}
+              paneRow={model.grid[row]}
+              moreThanOneRow={model.rows > 1}
+              addRowAbove={callModelFunction('addRow').bind(this, row)}
+              addRowBelow={callModelFunction('addRow').bind(this, row + 1)}
+              removeRow={callModelFunction('removeRow').bind(this, row)}
+              setActive={callModelFunction('setActive')}
+              setType={callModelFunction('setType')}
+              setCodeLocation={callModelFunction('setCodeLocation')}
+              setContent={this.props.setContent}
+            />
+          );
+        }, this)}
+      </div>
+    );
+  }
+});
+
+// Represents the footer div.
+var PanelessFooter = React.createClass({
+  render: function() {
+    return false;
+  }
+});
+
 // The model that the application is based on.
 var model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
 
 // The top-level class for the application's view.
-var PaneGrid = React.createClass({
+var Paneless = React.createClass({
   getInitialState: function() {
     return {
       model: model,
@@ -302,8 +343,18 @@ var PaneGrid = React.createClass({
     }
 
     this.setState({
-      model: model,
+      model: model
     });
+  },
+
+  // Returns a function that applies the given arguments to the function fName
+  // of the model, then updates the component's state.
+  callModelFunction: function(fName) {
+    return function() {
+      // Call model's function fName on the given arguments.
+      this.state.model[fName].apply(model, arguments);
+      this.updateState();
+    }.bind(this);
   },
 
   // When the user types in one of the <textarea> tags, the application will
@@ -321,46 +372,19 @@ var PaneGrid = React.createClass({
     this.inputTimer = setTimeout(this.updateState, TYPING_TIMEOUT);
   },
 
-  // Returns a function that applies the given arguments to the function fName
-  // of the model, then updates the component's state.
-  callModelFunction: function(fName) {
-    return function() {
-      // Call model's function fName on the given arguments.
-      model[fName].apply(model, arguments);
-      this.updateState();
-    }.bind(this);
-  },
-
   render: function() {
-    var model = this.state.model;
-
-    return (
-      <div className='pane-container'>
-        <ColumnRemoverRow
-          cols={model.cols}
-          addCol={this.callModelFunction('addCol')}
-          removeCol={this.callModelFunction('removeCol')}
+    return(
+      <div className='paneless'>
+        <PaneGrid
+          model={this.state.model}
+          callModelFunction={this.callModelFunction}
+          setContent={this.setContent}
         />
-        {range(model.rows).map(function(row) {
-          return (
-            <PaneRow
-              row={row}
-              paneRow={model.grid[row]}
-              moreThanOneRow={model.rows > 1}
-              addRowAbove={this.callModelFunction('addRow').bind(this, row)}
-              addRowBelow={this.callModelFunction('addRow').bind(this, row + 1)}
-              removeRow={this.callModelFunction('removeRow').bind(this, row)}
-              setActive={this.callModelFunction('setActive')}
-              setType={this.callModelFunction('setType')}
-              setCodeLocation={this.callModelFunction('setCodeLocation')}
-              setContent={this.setContent}
-            />
-          );
-        }, this)}
+        <PanelessFooter />
       </div>
     );
   }
 });
 
 // Render the top-level class of the application.
-React.render(<PaneGrid />, document.body);
+React.render(<Paneless />, document.body);

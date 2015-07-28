@@ -1,12 +1,19 @@
-html, body {
+html, body, .paneless {
   height: 100%;
   width: 100%;
   margin: 0;
 }
 
+.paneless {
+  display: flex;
+  flex-direction: column;
+}
+
 .pane-container {
   height: 100%;
   width: 100%;
+
+  flex: 1 1 auto;
 
   display: flex;
   flex-direction: column;
@@ -17,6 +24,10 @@ html, body {
 
   /* Make sure pane container does not overflow from the body element. */
   box-sizing: padding-box;
+}
+
+.footer {
+  flex: 0 1 auto;
 }
 
 .pane-row {
