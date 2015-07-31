@@ -392,4 +392,4 @@ var Paneless = React.createClass({
 });
 
 // Render the top-level class of the application.
-React.render(<Paneless />, document.body);
+React.render(<Paneless />, document.getElementById('root'));

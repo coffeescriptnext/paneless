@@ -1,4 +1,4 @@
-html, body, .paneless {
+html, body, #root, .paneless {
   height: 100%;
   width: 100%;
   margin: 0;
