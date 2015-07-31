@@ -58,9 +58,8 @@ html, body, .paneless {
   margin-left: 10px;
 }
 
-.pane.adder {
-  /* The buttons inside the adder pane are positioned absolutely. */
-  position: relative;
+.pane.adder.row {
+  flex-flow: row;
 }
 
 .pane.adder.col {
@@ -76,13 +75,16 @@ html, body, .paneless {
 }
 
 .pane .header {
-  /* Wrap header content. */
-  flex: 0 1 auto;
+  /* Header is 25 px tall to fit the deactivate button. */
+  flex: 0 0 25px;
 
   margin-bottom: 5px;
 
   /* The buttons inside the header are positioned absolutely. */
   position: relative;
+
+  display: flex;
+  flex-flow: row;
 }
 
 .pane .header select {
@@ -106,36 +108,41 @@ html, body, .paneless {
   resize: none;
 }
 
-.absolute {
-  position: absolute;
+button {
+  display: block;
+  height: 25px;
+  width: 25px;
+
+  font-size: 10px;
+}
+
+.flex {
+  flex: 1 1 auto;
+  display: flex;
 }
 
 .center-x {
-  left: 50%;
-  transform: translateX(-50%);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .center-y {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.center-x.center-y {
-  transform: translate(-50%, -50%);
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .left {
-  left: 0;
+  margin-right: auto;
 }
 
 .right {
-  right: 0;
+  margin-left: auto;
 }
 
 .top {
-  top: 0;
+  margin-bottom: auto;
 }
 
 .bottom {
-  bottom: 0;
+  margin-top: auto;
 }

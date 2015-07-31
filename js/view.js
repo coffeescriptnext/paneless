@@ -87,12 +87,16 @@ var PaneCodeLocationSelector = React.createClass({
 var ButtonWrapper = React.createClass({
   render: function() {
     return (
-      <button
-        className={this.props.position}
-        onClick={this.props.onClick}
-      >
-        {this.props.content}
-      </button>
+      <div className='flex'>
+        {this.props.showButton ? (
+          <button
+            className={this.props.position}
+            onClick={this.props.onClick}
+          >
+            {this.props.content}
+          </button>
+        ) : false}
+      </div>
     );
   }
 });
@@ -121,6 +125,7 @@ var PaneHeader = React.createClass({
           position='absolute center-y right'
           content='X'
           onClick={this.setInactive}
+          showButton
         />
       </div>
     );
@@ -167,6 +172,7 @@ var PaneContainer = React.createClass({
             position='absolute center-x center-y'
             content='+'
             onClick={this.setActive.bind(this, true)}
+            showButton
           />
         </div>
       );
@@ -184,24 +190,23 @@ var RowColumnController = React.createClass({
 
     return (
       <div className={'pane adder ' + this.props.orientation}>
-        {this.props.isFirst ? (
-          <ButtonWrapper
-            position={beforePos}
-            content='+'
-            onClick={this.props.addBefore}
-          />
-        ) : false}
-        {this.props.allowRemoval ? (
-          <ButtonWrapper
-            position='absolute center-x center-y'
-            content='-'
-            onClick={this.props.remove}
-          />
-        ) : false}
+        <ButtonWrapper
+          position={beforePos}
+          content='+'
+          onClick={this.props.addBefore}
+          showButton={this.props.isFirst}
+        />
+        <ButtonWrapper
+          position='absolute center-x center-y'
+          content='-'
+          onClick={this.props.remove}
+          showButton={this.props.allowRemoval}
+        />
         <ButtonWrapper
           position={afterPos}
           content='+'
           onClick={this.props.addAfter}
+          showButton
         />
       </div>
     );
