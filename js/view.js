@@ -88,14 +88,12 @@ var ButtonWrapper = React.createClass({
   render: function() {
     return (
       <div className='flex'>
-        {this.props.showButton ? (
-          <button
-            className={this.props.position}
-            onClick={this.props.onClick}
-          >
-            {this.props.content}
-          </button>
-        ) : false}
+        <button
+          className={this.props.showButton ? this.props.position : 'hidden'}
+          onClick={this.props.onClick}
+        >
+          {this.props.content}
+        </button>
       </div>
     );
   }
@@ -228,7 +226,12 @@ var ColumnRemoverRow = React.createClass({
     // This empty row removal <div> keeps the column remover buttons in line
     // with the columns.
     var emptyRowRemover = (
-      <div className='pane adder col' />
+      <div className='pane adder col'>
+        <ButtonWrapper
+          content='-'
+          showButton={false}
+        />
+      </div>
     );
 
     return (
