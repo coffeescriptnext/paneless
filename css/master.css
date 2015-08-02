@@ -10,9 +10,6 @@ html, body, #root, .paneless {
 }
 
 .pane-container {
-  height: 100%;
-  width: 100%;
-
   flex: 1 1 auto;
 
   display: flex;
@@ -21,13 +18,10 @@ html, body, #root, .paneless {
   /* Padding to match 10px top and left margins on panes. */
   /* The bottom spacing is included in the footer.  */
   padding-right: 10px;
-
-  /* Make sure pane container does not overflow from the body element. */
-  box-sizing: padding-box;
 }
 
 .footer {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
 
   display: flex;
   flex-flow: row;
@@ -48,7 +42,7 @@ html, body, #root, .paneless {
 }
 
 .pane-row.adder {
-  flex: 1 1 0;
+  flex: 0 0 0;
 }
 
 .pane {
@@ -69,23 +63,18 @@ html, body, #root, .paneless {
 }
 
 .pane.adder.col {
-  flex: 1 1 0;
+  flex: 0 0 0;
 }
 
 .pane.inactive {
   background: transparent repeating-linear-gradient(45deg, #FFF, #FFF 17px, #AAA 17px, #AAA 20px) repeat scroll 0% 0%;
   background-clip: content-box;
-  /* The button inside the inactive pane is positioned absolutely. */
-  position: relative;
 }
 
 .pane .header {
   flex: 0 0 auto;
 
   margin-bottom: 5px;
-
-  /* The buttons inside the header are positioned absolutely. */
-  position: relative;
 
   display: flex;
   flex-flow: row;

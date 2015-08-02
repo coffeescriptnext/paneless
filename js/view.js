@@ -1,4 +1,4 @@
-// Represents the <textarea> or <iframe> tag inside a pane.
+// This class represents the <textarea> or <iframe> tag inside a pane.
 var Pane = React.createClass({
   setContent: function(event) {
     this.props.setContent(event.target.value);
@@ -28,13 +28,18 @@ var Pane = React.createClass({
   }
 });
 
-// Represents the <select> tag that lets the user choose the type of a pane.
+// This class represents the <select> tag that lets the user choose the type of
+// a pane (HTML, CSS, Javascript, or output).
 var PaneTypeSelector = React.createClass({
   setType: function(event) {
     var type = event.target.value;
     this.props.setType(type);
-    // Update code location to default for the new type. Otherwise, the current
-    // code location could be invalid for the new type.
+
+    // Update this pane's code location to the default for the new type.
+    // Otherwise, the current code location could be invalid for the new type.
+    // For example, if the user changes an HTML pane to a CSS pane, the 'body'
+    // code location would not be listed in the pane's PaneTypeSelector. The
+    // view and model would therefore be out of sync.
     this.props.setCodeLocation(CODE_LOCATION_DEFAULTS[type]);
   },
 
@@ -53,27 +58,30 @@ var PaneTypeSelector = React.createClass({
   }
 });
 
-// Represents the <select> tag that lets the user choose the code location of
-// a pane.
+// This class represents the <select> tag that lets the user choose the code
+// location of a pane.
 var PaneCodeLocationSelector = React.createClass({
   setCodeLocation: function(event) {
     this.props.setCodeLocation(event.target.value);
   },
 
   render: function() {
-    var thisCodeLocations = PANE_CODE_LOCATIONS[this.props.type];
+    // typeCodeLocations contains the valid code locations for the pane's
+    // current type.
+    var typeCodeLocations = PANE_CODE_LOCATIONS[this.props.type];
+    var typeCodeLocationsKeys = Object.keys(typeCodeLocations);
 
     // If the current pane type has no associated code locations (e.g. an output
     // pane), do not return an element.
-    if (Object.keys(thisCodeLocations).length === 0) {
+    if (typeCodeLocationsKeys.length === 0) {
       return false;
     } else {
       return (
         <select value={this.props.codeLocation} onChange={this.setCodeLocation}>
-          {Object.keys(thisCodeLocations).map(function(k) {
+          {typeCodeLocationsKeys.map(function(k) {
             return (
               <option value={k}>
-                {thisCodeLocations[k]}
+                {typeCodeLocations[k]}
               </option>
             );
           })}
@@ -83,7 +91,9 @@ var PaneCodeLocationSelector = React.createClass({
   }
 });
 
-// Wrapper for a <button> tag.
+// This class is a wrapper for a <button> tag. The button can be visible or
+// hidden, and the button's text can be small or large. The button itself can
+// also be assigned a class, an onclick function, and text or HTML content.
 var ButtonWrapper = React.createClass({
   render: function() {
     var className = (this.props.showButton ? this.props.position : 'hidden')
@@ -102,8 +112,8 @@ var ButtonWrapper = React.createClass({
   }
 });
 
-// Represents the header of a pane, which allows the user to change the pane's
-// settings and deactivate it.
+// This class represents the header of a pane, which allows the user to change
+// the pane's settings and deactivate it.
 var PaneHeader = React.createClass({
   setInactive: function() {
     this.props.setActive(false);
@@ -123,7 +133,7 @@ var PaneHeader = React.createClass({
           setCodeLocation={this.props.setCodeLocation}
         />
         <ButtonWrapper
-          position='absolute center-y right'
+          position='center-y right'
           content='X'
           onClick={this.setInactive}
           showButton
@@ -133,13 +143,16 @@ var PaneHeader = React.createClass({
   }
 });
 
-// Contains a pane's header and content. If the pane is inactive, allows the
-// user to reactivate the pane.
+// This class contains a pane's header and content. If the pane is inactive,
+// it allows the user to reactivate the pane.
 var PaneContainer = React.createClass({
   setActive: function(active) {
     this.props.setActive(this.props.row, this.props.col, active);
   },
 
+  // handleEvent is a generic event-handling function. It allows event-handling
+  // functions that are called with row and column numbers to be easily called
+  // without wrappers for each one.
   handleEvent: function(f) {
     return function(val) {
       f(this.props.row, this.props.col, val);
@@ -170,7 +183,7 @@ var PaneContainer = React.createClass({
       return (
         <div className='pane inactive'>
           <ButtonWrapper
-            position='absolute center-x center-y'
+            position='center-x center-y'
             content='+'
             onClick={this.setActive.bind(this, true)}
             showButton
@@ -181,13 +194,13 @@ var PaneContainer = React.createClass({
   }
 });
 
-// Allows the user to remove the associated row or column, and to add rows or
-// columns before and/or after it.
+// This class allows the user to remove the associated row or column, and to add
+// rows or columns before and/or after it.
 var RowColumnController = React.createClass({
   render: function() {
     var isRow = this.props.orientation === 'row';
-    var beforePos = 'absolute ' + (isRow ? 'center-y left' : 'center-x top');
-    var afterPos = 'absolute ' + (isRow ? 'center-y right' : 'center-x bottom');
+    var beforePos = isRow ? 'center-y left' : 'center-x top';
+    var afterPos = isRow ? 'center-y right' : 'center-x bottom';
 
     return (
       <div className={'pane adder ' + this.props.orientation}>
@@ -198,7 +211,7 @@ var RowColumnController = React.createClass({
           showButton={this.props.isFirst}
         />
         <ButtonWrapper
-          position='absolute center-x center-y'
+          position='center-x center-y'
           content='-'
           onClick={this.props.remove}
           showButton={this.props.allowRemoval}
@@ -214,8 +227,8 @@ var RowColumnController = React.createClass({
   }
 });
 
-// Represents the row at the top of the screen that contains the column removal
-// buttons for each column.
+// This class represents the row at the top of the screen that contains the
+// column removal buttons for each column.
 var ColumnRemoverRow = React.createClass({
   addCol: function(col) {
     this.props.addCol(col);
@@ -226,8 +239,7 @@ var ColumnRemoverRow = React.createClass({
   },
 
   render: function() {
-    // This empty row removal <div> keeps the column remover buttons in line
-    // with the columns.
+    // This <button> keeps the column remover buttons in line with the columns.
     var emptyRowRemover = (
       <div className='pane adder col'>
         <ButtonWrapper
@@ -246,7 +258,7 @@ var ColumnRemoverRow = React.createClass({
               orientation='row'
               isFirst={col === 0}
               allowRemoval={this.props.cols > 1}
-              addBefore={this.addCol.bind(this, 0)}
+              addBefore={this.addCol.bind(this, col)}
               addAfter={this.addCol.bind(this, col + 1)}
               remove={this.removeCol.bind(this, col)}
             />
@@ -257,29 +269,27 @@ var ColumnRemoverRow = React.createClass({
   }
 });
 
-// Represents one row of panes.
+// This class represents one row of panes.
 var PaneRow = React.createClass({
   render: function() {
-    var rowRemover = (
-      <RowColumnController
-        orientation='col'
-        isFirst={this.props.row === 0}
-        allowRemoval={this.props.moreThanOneRow}
-        addBefore={this.props.addRowAbove}
-        addAfter={this.props.addRowBelow}
-        remove={this.props.removeRow}
-      />
-    );
+    var paneRow = this.props.paneRow;
 
     return (
       <div className='pane-row'>
-        {rowRemover}
-        {range(this.props.paneRow.length).map(function(col) {
+        <RowColumnController
+          orientation='col'
+          isFirst={this.props.row === 0}
+          allowRemoval={this.props.moreThanOneRow}
+          addBefore={this.props.addRowAbove}
+          addAfter={this.props.addRowBelow}
+          remove={this.props.removeRow}
+        />
+        {range(paneRow.length).map(function(col) {
           return (
             <PaneContainer
               row={this.props.row}
               col={col}
-              pane={this.props.paneRow[col]}
+              pane={paneRow[col]}
               setActive={this.props.setActive}
               setType={this.props.setType}
               setCodeLocation={this.props.setCodeLocation}
@@ -292,7 +302,7 @@ var PaneRow = React.createClass({
   }
 });
 
-// Represents a 2D grid of panes.
+// This class represents a 2D grid of panes.
 var PaneGrid = React.createClass({
   render: function() {
     var model = this.props.model;
@@ -326,8 +336,8 @@ var PaneGrid = React.createClass({
   }
 });
 
-// Lets the user refresh the content, and choose whether or not the content
-// will be refreshed automatically.
+// Settings in the footer that let the user refresh the content, and choose
+// whether or not the content will be refreshed automatically while typing.
 var RefreshSettings = React.createClass({
   setAutoRefresh: function(event) {
     this.props.setAutoRefresh(event.target.checked);
@@ -359,6 +369,8 @@ var RefreshSettings = React.createClass({
 // Represents the footer div.
 var PanelessFooter = React.createClass({
   render: function() {
+    // This <div> is used to keep the actual footer content in line with The
+    // panes, leaving the space below the row-remover buttons blank.
     var emptyRowRemover = (
       <div className='pane adder col'>
         <ButtonWrapper
@@ -421,6 +433,10 @@ var Paneless = React.createClass({
   // wait for TYPING_TIMEOUT seconds before notifying React that the model has
   // been updated. If the user changes the model in the meantime, the timeout
   // will be reset.
+  // If autoRefresh is set to false, the view will not be refreshed on changing
+  // the contents of a pane. However, it will change on events such as
+  // activating or deactivtating a pane, adding or removing a row or column, and
+  // changing the type or code location of a pane.
   setContent: function(row, col, content) {
     model.setContent(row, col, content);
 
