@@ -86,10 +86,13 @@ var PaneCodeLocationSelector = React.createClass({
 // Wrapper for a <button> tag.
 var ButtonWrapper = React.createClass({
   render: function() {
+    var className = (this.props.showButton ? this.props.position : 'hidden')
+      + (this.props.largeButton ? ' large' : '');
+
     return (
       <div className='flex'>
         <button
-          className={this.props.showButton ? this.props.position : 'hidden'}
+          className={className}
           onClick={this.props.onClick}
         >
           {this.props.content}
@@ -326,7 +329,36 @@ var PaneGrid = React.createClass({
 // Represents the footer div.
 var PanelessFooter = React.createClass({
   render: function() {
-    return false;
+    var emptyRowRemover = (
+      <div className='pane adder col'>
+        <ButtonWrapper
+          content='-'
+          showButton={false}
+        />
+      </div>
+    );
+
+    return (
+      <div className='footer'>
+        {emptyRowRemover}
+        <div className='pane'>
+          <ButtonWrapper
+            position='left center-y'
+            content='Refresh'
+            onClick={this.props.refresh}
+            showButton
+            largeButton
+          />
+          <div>
+            <input
+              type='checkbox'
+              defaultChecked={true}
+            />
+            Automatically refresh the page on edit
+          </div>
+        </div>
+      </div>
+    );
   }
 });
 

@@ -19,8 +19,8 @@ html, body, #root, .paneless {
   flex-direction: column;
 
   /* Padding to match 10px top and left margins on panes. */
+  /* The bottom spacing is included in the footer.  */
   padding-right: 10px;
-  padding-bottom: 10px;
 
   /* Make sure pane container does not overflow from the body element. */
   box-sizing: padding-box;
@@ -28,6 +28,13 @@ html, body, #root, .paneless {
 
 .footer {
   flex: 0 1 auto;
+
+  display: flex;
+  flex-flow: row;
+
+  /* Padding to match 10px top and left margins on panes. */
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 .pane-row {
@@ -113,6 +120,10 @@ button {
 
 button.hidden {
   visibility: hidden;
+}
+
+button.large {
+  font-size: 15px;
 }
 
 .flex {
