@@ -326,6 +326,36 @@ var PaneGrid = React.createClass({
   }
 });
 
+// Lets the user refresh the content, and choose whether or not the content
+// will be refreshed automatically.
+var RefreshSettings = React.createClass({
+  setAutoRefresh: function(event) {
+    this.props.setAutoRefresh(event.target.value);
+  },
+
+  render: function() {
+    return (
+      <div className='pane'>
+        <ButtonWrapper
+          position='left center-y'
+          content='Refresh'
+          onClick={this.props.refresh}
+          showButton
+          largeButton
+        />
+        <div>
+          <input
+            type='checkbox'
+            defaultChecked={true}
+            onChange={this.setAutoRefresh}
+          />
+          Automatically refresh the page on edit
+        </div>
+      </div>
+    );
+  }
+});
+
 // Represents the footer div.
 var PanelessFooter = React.createClass({
   render: function() {
@@ -341,22 +371,10 @@ var PanelessFooter = React.createClass({
     return (
       <div className='footer'>
         {emptyRowRemover}
-        <div className='pane'>
-          <ButtonWrapper
-            position='left center-y'
-            content='Refresh'
-            onClick={this.props.refresh}
-            showButton
-            largeButton
-          />
-          <div>
-            <input
-              type='checkbox'
-              defaultChecked={true}
-            />
-            Automatically refresh the page on edit
-          </div>
-        </div>
+        <RefreshSettings
+          refresh={this.props.refresh}
+          setAutoRefresh={this.props.setAutoRefresh}
+        />
       </div>
     );
   }
