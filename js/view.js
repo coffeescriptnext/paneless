@@ -330,7 +330,7 @@ var PaneGrid = React.createClass({
 // will be refreshed automatically.
 var RefreshSettings = React.createClass({
   setAutoRefresh: function(event) {
-    this.props.setAutoRefresh(event.target.value);
+    this.props.setAutoRefresh(event.target.checked);
   },
 
   render: function() {
@@ -346,7 +346,7 @@ var RefreshSettings = React.createClass({
         <div>
           <input
             type='checkbox'
-            defaultChecked={true}
+            checked={this.props.autoRefresh}
             onChange={this.setAutoRefresh}
           />
           Automatically refresh the page on edit
@@ -373,6 +373,7 @@ var PanelessFooter = React.createClass({
         {emptyRowRemover}
         <RefreshSettings
           refresh={this.props.refresh}
+          autoRefresh={this.props.autoRefresh}
           setAutoRefresh={this.props.setAutoRefresh}
         />
       </div>
@@ -388,6 +389,7 @@ var Paneless = React.createClass({
   getInitialState: function() {
     return {
       model: model,
+      autoRefresh: true,
     };
   },
 
@@ -422,12 +424,21 @@ var Paneless = React.createClass({
   setContent: function(row, col, content) {
     model.setContent(row, col, content);
 
-    var timer = this.inputTimer;
+    if (this.state.autoRefresh) {
+      var timer = this.inputTimer;
+      if (typeof timer !== 'undefined') {
+        clearTimeout(timer);
+      }
 
-    if (typeof timer !== 'undefined') {
-      clearTimeout(timer);
+      this.inputTimer = setTimeout(this.updateState, TYPING_TIMEOUT);
     }
-    this.inputTimer = setTimeout(this.updateState, TYPING_TIMEOUT);
+  },
+
+  // Sets whether the content will be automatically refreshed upon typing.
+  setAutoRefresh: function(autoRefresh) {
+    this.setState({
+      autoRefresh: autoRefresh
+    });
   },
 
   render: function() {
@@ -438,7 +449,11 @@ var Paneless = React.createClass({
           callModelFunction={this.callModelFunction}
           setContent={this.setContent}
         />
-        <PanelessFooter />
+        <PanelessFooter
+          refresh={this.updateState}
+          autoRefresh={this.state.autoRefresh}
+          setAutoRefresh={this.setAutoRefresh}
+        />
       </div>
     );
   }
