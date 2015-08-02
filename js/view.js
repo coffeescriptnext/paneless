@@ -369,7 +369,7 @@ var RefreshSettings = React.createClass({
 // Represents the footer div.
 var PanelessFooter = React.createClass({
   render: function() {
-    // This <div> is used to keep the actual footer content in line with The
+    // This <div> is used to keep the actual footer content in line with the
     // panes, leaving the space below the row-remover buttons blank.
     var emptyRowRemover = (
       <div className='pane adder col'>
