@@ -1,3 +1,12 @@
+import {
+  PANE_DEFAULTS,
+} from './constants.js';
+
+import {
+  range,
+  makeHTMLTag,
+} from './util.js';
+
 // Describes the state of one pane.
 var PaneModel = function(attributes) {
   if (typeof attributes === 'undefined') {
@@ -164,3 +173,5 @@ PaneGridModel.prototype.removeCol = function(colIndex) {
 
   this.updateOutputs();
 };
+
+export default PaneGridModel;

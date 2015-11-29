@@ -1,8 +1,8 @@
 // Time in milliseconds to wait after the user stops typing to update the UI.
-var TYPING_TIMEOUT = 250;
+export var TYPING_TIMEOUT = 250;
 
 // Values for the default pane type. Used when adding new rows / columns.
-var PANE_DEFAULTS = {
+export var PANE_DEFAULTS = {
   active: false,
   type: 'js',
   codeLocation: 'head',
@@ -11,7 +11,7 @@ var PANE_DEFAULTS = {
 
 // Default code locations for the different code types. Used when the type of
 // a pane is changed and a valid code location needs to be provided.
-var CODE_LOCATION_DEFAULTS = {
+export var CODE_LOCATION_DEFAULTS = {
   js: 'head',
   html: 'body',
   css: 'head',
@@ -19,7 +19,7 @@ var CODE_LOCATION_DEFAULTS = {
 };
 
 // The default grid that is shown upon loading a page.
-var GRID_ATTRIBUTE_DEFAULTS = [[{
+export var GRID_ATTRIBUTE_DEFAULTS = [[{
   active: true,
   type: 'html',
   codeLocation: 'body',
@@ -43,7 +43,7 @@ var GRID_ATTRIBUTE_DEFAULTS = [[{
 
 // The full names of the different pane types. Used in the <select> tag for the
 // pane type, and as the placeholder text in the <textarea> tag.
-var PANE_TYPE_FULL_NAMES = {
+export var PANE_TYPE_FULL_NAMES = {
   'js': 'Javascript',
   'html': 'HTML',
   'css': 'CSS',
@@ -52,7 +52,7 @@ var PANE_TYPE_FULL_NAMES = {
 
 // Descriptions of the code locations. Used in the <select> tag for the code
 // location.
-var PANE_CODE_LOCATIONS = {
+export var PANE_CODE_LOCATIONS = {
   'js': {
     'head': 'Inside a <script> tag in <head>',
     'window.onload': 'Inside window.onload',

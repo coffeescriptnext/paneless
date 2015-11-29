@@ -1,7 +1,7 @@
 // Returns an array containing the numbers between lower and upper in ascending
 // order, including lower but not upper.
 // If upper is not provided, 0 and lower are used instead.
-function range(lower, upper) {
+export function range(lower, upper) {
   var result = [];
 
   if (typeof upper === 'undefined') {
@@ -18,7 +18,7 @@ function range(lower, upper) {
 
 // Returns a string containing an HTML tag, based on the given tag type,
 // children / content, and object of attributes.
-function makeHTMLTag(tag, content, attributes) {
+export function makeHTMLTag(tag, content, attributes) {
   var attributesString = typeof attributes !== 'undefined' ?
                          makeAttributesString(attributes) :
                          '';

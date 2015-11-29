@@ -1,3 +1,20 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import PaneGridModel from './model';
+
+import {
+  TYPING_TIMEOUT,
+  CODE_LOCATION_DEFAULTS,
+  GRID_ATTRIBUTE_DEFAULTS,
+  PANE_TYPE_FULL_NAMES,
+  PANE_CODE_LOCATIONS,
+} from './constants.js';
+
+import {
+  range,
+} from './util.js';
+
 // This class represents the <textarea> or <iframe> tag inside a pane.
 var Pane = React.createClass({
   setContent: function(event) {
@@ -476,4 +493,4 @@ var Paneless = React.createClass({
 });
 
 // Render the top-level class of the application.
-React.render(<Paneless />, document.getElementById('root'));
+ReactDOM.render(<Paneless />, document.getElementById('root'));
