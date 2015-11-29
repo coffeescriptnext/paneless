@@ -7,8 +7,8 @@ import {
 
 // This class represents the <select> tag that lets the user choose the type of
 // a pane (HTML, CSS, Javascript, or output).
-export default React.createClass({
-  setType: function(event) {
+export default class PaneTypeSelector extends React.Component {
+  setType(event) {
     var type = event.target.value;
     this.props.setType(type);
 
@@ -18,9 +18,9 @@ export default React.createClass({
     // code location would not be listed in the pane's PaneTypeSelector. The
     // view and model would therefore be out of sync.
     this.props.setCodeLocation(CODE_LOCATION_DEFAULTS[type]);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <select value={this.props.type} onChange={this.setType}>
         {Object.keys(PANE_TYPE_FULL_NAMES).map(function(k) {
@@ -33,4 +33,4 @@ export default React.createClass({
       </select>
     );
   }
-});
+}

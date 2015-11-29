@@ -6,8 +6,8 @@ import ColumnRemoverRow from './ColumnRemoverRow';
 import PaneRow from './PaneRow';
 
 // This class represents a 2D grid of panes.
-export default React.createClass({
-  render: function() {
+export default class PaneGrid extends React.Component {
+  render() {
     var model = this.props.model;
     var callModelFunction = this.props.callModelFunction;
 
@@ -37,4 +37,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

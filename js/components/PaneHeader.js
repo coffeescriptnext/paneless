@@ -6,12 +6,12 @@ import ButtonWrapper from './ButtonWrapper';
 
 // This class represents the header of a pane, which allows the user to change
 // the pane's settings and deactivate it.
-export default React.createClass({
-  setInactive: function() {
+export default class PaneHeader extends React.Component {
+  setInactive() {
     this.props.setActive(false);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className='header'>
         <PaneTypeSelector
@@ -33,4 +33,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

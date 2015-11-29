@@ -4,8 +4,8 @@ import ButtonWrapper from './ButtonWrapper';
 
 // This class allows the user to remove the associated row or column, and to add
 // rows or columns before and/or after it.
-export default React.createClass({
-  render: function() {
+export default class RowColumnController extends React.Component {
+  render() {
     var isRow = this.props.orientation === 'row';
     var beforePos = isRow ? 'center-y left' : 'center-x top';
     var afterPos = isRow ? 'center-y right' : 'center-x bottom';
@@ -33,4 +33,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

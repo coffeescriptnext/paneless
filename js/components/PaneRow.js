@@ -6,8 +6,8 @@ import RowColumnController from './RowColumnController';
 import PaneContainer from './PaneContainer';
 
 // This class represents one row of panes.
-export default React.createClass({
-  render: function() {
+export default class PaneRow extends React.Component {
+  render() {
     var paneRow = this.props.paneRow;
 
     return (
@@ -36,4 +36,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

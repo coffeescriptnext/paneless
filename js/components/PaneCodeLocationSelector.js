@@ -4,12 +4,12 @@ import { PANE_CODE_LOCATIONS } from '../constants';
 
 // This class represents the <select> tag that lets the user choose the code
 // location of a pane.
-export default React.createClass({
-  setCodeLocation: function(event) {
+export default class PaneCodeLocationSelector extends React.Component {
+  setCodeLocation(event) {
     this.props.setCodeLocation(event.target.value);
-  },
+  }
 
-  render: function() {
+  render() {
     // typeCodeLocations contains the valid code locations for the pane's
     // current type.
     var typeCodeLocations = PANE_CODE_LOCATIONS[this.props.type];
@@ -33,4 +33,4 @@ export default React.createClass({
       );
     }
   }
-});
+}

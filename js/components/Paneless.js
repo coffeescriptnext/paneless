@@ -10,18 +10,18 @@ import Footer from './Footer';
 var model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
 
 // The top-level class for the application's view.
-export default React.createClass({
-  getInitialState: function() {
+export default class Paneless extends React.Component {
+  getInitialState() {
     return {
       model: model,
       autoRefresh: true,
     };
-  },
+  }
 
   // This function should be called after the model has been updated.
   // It clears the timer that is set by setContent, so that the model is not
   // updated more than once.
-  updateState: function() {
+  updateState() {
     var timer = this.inputTimer;
     if (typeof timer !== 'undefined') {
       clearTimeout(timer);
@@ -30,17 +30,17 @@ export default React.createClass({
     this.setState({
       model: model
     });
-  },
+  }
 
   // Returns a function that applies the given arguments to the function fName
   // of the model, then updates the component's state.
-  callModelFunction: function(fName) {
+  callModelFunction(fName) {
     return function() {
       // Call model's function fName on the given arguments.
       this.state.model[fName].apply(model, arguments);
       this.updateState();
     }.bind(this);
-  },
+  }
 
   // When the user types in one of the <textarea> tags, the application will
   // wait for TYPING_TIMEOUT seconds before notifying React that the model has
@@ -50,7 +50,7 @@ export default React.createClass({
   // the contents of a pane. However, it will change on events such as
   // activating or deactivtating a pane, adding or removing a row or column, and
   // changing the type or code location of a pane.
-  setContent: function(row, col, content) {
+  setContent(row, col, content) {
     model.setContent(row, col, content);
 
     if (this.state.autoRefresh) {
@@ -61,16 +61,16 @@ export default React.createClass({
 
       this.inputTimer = setTimeout(this.updateState, TYPING_TIMEOUT);
     }
-  },
+  }
 
   // Sets whether the content will be automatically refreshed upon typing.
-  setAutoRefresh: function(autoRefresh) {
+  setAutoRefresh(autoRefresh) {
     this.setState({
       autoRefresh: autoRefresh
     });
-  },
+  }
 
-  render: function() {
+  render() {
     return(
       <div className='paneless'>
         <PaneGrid
@@ -86,4 +86,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

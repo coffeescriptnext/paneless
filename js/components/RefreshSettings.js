@@ -4,12 +4,12 @@ import ButtonWrapper from './ButtonWrapper';
 
 // Settings in the footer that let the user refresh the content, and choose
 // whether or not the content will be refreshed automatically while typing.
-export default React.createClass({
-  setAutoRefresh: function(event) {
+export default class RefreshSettings extends React.Component {
+  setAutoRefresh(event) {
     this.props.setAutoRefresh(event.target.checked);
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className='pane'>
         <ButtonWrapper
@@ -30,4 +30,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

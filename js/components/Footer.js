@@ -4,8 +4,8 @@ import ButtonWrapper from './ButtonWrapper';
 import RefreshSettings from './RefreshSettings';
 
 // Represents the footer div.
-export default React.createClass({
-  render: function() {
+export default class Footer extends React.Component {
+  render() {
     // This <div> is used to keep the actual footer content in line with the
     // panes, leaving the space below the row-remover buttons blank.
     var emptyRowRemover = (
@@ -28,4 +28,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
