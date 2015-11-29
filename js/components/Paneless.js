@@ -11,8 +11,9 @@ var model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
 
 // The top-level class for the application's view.
 export default class Paneless extends React.Component {
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       model: model,
       autoRefresh: true,
     };
