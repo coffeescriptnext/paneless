@@ -9,7 +9,7 @@ export function range(lower, upper) {
     lower = 0;
   }
 
-  for (const i = lower; i < upper; i++) {
+  for (var i = lower; i < upper; i++) {
     result.push(i);
   }
 
