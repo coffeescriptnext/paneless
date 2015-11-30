@@ -9,7 +9,7 @@ import {
 // a pane (HTML, CSS, Javascript, or output).
 export default class PaneTypeSelector extends React.Component {
   setType(event) {
-    var type = event.target.value;
+    const type = event.target.value;
     this.props.setType(type);
 
     // Update this pane's code location to the default for the new type.

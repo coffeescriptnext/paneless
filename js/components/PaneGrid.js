@@ -8,8 +8,8 @@ import PaneRow from './PaneRow';
 // This class represents a 2D grid of panes.
 export default class PaneGrid extends React.Component {
   render() {
-    var model = this.props.model;
-    var callModelFunction = this.props.callModelFunction;
+    const model = this.props.model;
+    const callModelFunction = this.props.callModelFunction;
 
     return (
       <div className='pane-container'>

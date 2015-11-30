@@ -9,7 +9,7 @@ export function range(lower, upper) {
     lower = 0;
   }
 
-  for (var i = lower; i < upper; i++) {
+  for (const i = lower; i < upper; i++) {
     result.push(i);
   }
 
@@ -19,7 +19,7 @@ export function range(lower, upper) {
 // Returns a string containing an HTML tag, based on the given tag type,
 // children / content, and object of attributes.
 export function makeHTMLTag(tag, content, attributes) {
-  var attributesString = typeof attributes !== 'undefined' ?
+  const attributesString = typeof attributes !== 'undefined' ?
                          makeAttributesString(attributes) :
                          '';
 

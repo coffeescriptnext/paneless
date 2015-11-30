@@ -21,7 +21,7 @@ export default class PaneContainer extends React.Component {
   }
 
   render() {
-    var pane = this.props.pane;
+    const pane = this.props.pane;
 
     if (pane.active) {
       return (

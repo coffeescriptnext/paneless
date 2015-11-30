@@ -8,19 +8,19 @@ import {
 } from './util.js';
 
 // Describes the state of one pane.
-var PaneModel = function(attributes) {
+const PaneModel = function(attributes) {
   if (typeof attributes === 'undefined') {
     attributes = PANE_DEFAULTS;
   }
 
-  for (var key in PANE_DEFAULTS) {
+  for (const key in PANE_DEFAULTS) {
     // If the key does not exist in attributes, use the default value.
     this[key] = attributes[key] || PANE_DEFAULTS[key];
   }
 };
 
 // Describes the state of a grid (2D array) of panes.
-var PaneGridModel = function(rows, cols, grid) {
+const PaneGridModel = function(rows, cols, grid) {
   this.rows = rows;
   this.cols = cols;
   this.grid = grid.map(function(row) {
@@ -37,7 +37,7 @@ PaneGridModel.prototype.findPane = function(row, col) {
 
 // Sets a property of the given PaneModel object to the given value.
 PaneGridModel.prototype.setProperty = function(row, col, property, value) {
-  var thisPane = this.grid[row][col];
+  const thisPane = this.grid[row][col];
   thisPane[property] = value;
   return thisPane;
 };
@@ -52,7 +52,7 @@ PaneGridModel.prototype.setActive = function(row, col, active) {
 // Sets the 'type' property of the given PaneModel object and removes its
 // content. Then, updates the output panes.
 PaneGridModel.prototype.setType = function(row, col, type) {
-  var pane = this.setProperty(row, col, 'type', type);
+  const pane = this.setProperty(row, col, 'type', type);
   pane.content = '';
   this.updateOutputs();
 };
@@ -67,7 +67,7 @@ PaneGridModel.prototype.setCodeLocation = function(row, col, codeLocation) {
 // Sets the 'content' property of the given PaneModel object. If the pane
 // changed is not an output pane, updates the output panes.
 PaneGridModel.prototype.setContent = function(row, col, content) {
-  var pane = this.setProperty(row, col, 'content', content);
+  const pane = this.setProperty(row, col, 'content', content);
 
   if (pane.type !== 'output') {
     this.updateOutputs();
@@ -76,7 +76,7 @@ PaneGridModel.prototype.setContent = function(row, col, content) {
 
 // Sets all output panes to have the up-to-date output content.
 PaneGridModel.prototype.updateOutputs = function() {
-  var outputContent = this.getOutputContent();
+  const outputContent = this.getOutputContent();
 
   this.grid.forEach(function(row) {
     row.forEach(function(pane) {
@@ -131,7 +131,7 @@ PaneGridModel.prototype.getOutputContent = function() {
 
 // Adds a row to the grid at a given index, then updates the output panes.
 PaneGridModel.prototype.addRow = function(rowIndex) {
-  var newRow = range(this.cols).map(function(i) {
+  const newRow = range(this.cols).map(function(i) {
     return new PaneModel();
   });
 

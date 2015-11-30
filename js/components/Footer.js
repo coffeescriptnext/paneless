@@ -8,7 +8,7 @@ export default class Footer extends React.Component {
   render() {
     // This <div> is used to keep the actual footer content in line with the
     // panes, leaving the space below the row-remover buttons blank.
-    var emptyRowRemover = (
+    const emptyRowRemover = (
       <div className='pane adder col'>
         <ButtonWrapper
           content='-'

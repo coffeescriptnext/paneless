@@ -8,7 +8,7 @@ import PaneContainer from './PaneContainer';
 // This class represents one row of panes.
 export default class PaneRow extends React.Component {
   render() {
-    var paneRow = this.props.paneRow;
+    const paneRow = this.props.paneRow;
 
     return (
       <div className='pane-row'>

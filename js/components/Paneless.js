@@ -7,7 +7,7 @@ import PaneGrid from './PaneGrid';
 import Footer from './Footer';
 
 // The model that the application is based on.
-var model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
+const model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
 
 // The top-level class for the application's view.
 export default class Paneless extends React.Component {
@@ -23,7 +23,7 @@ export default class Paneless extends React.Component {
   // It clears the timer that is set by setContent, so that the model is not
   // updated more than once.
   updateState() {
-    var timer = this.inputTimer;
+    const timer = this.inputTimer;
     if (typeof timer !== 'undefined') {
       clearTimeout(timer);
     }
@@ -55,7 +55,7 @@ export default class Paneless extends React.Component {
     model.setContent(row, col, content);
 
     if (this.state.autoRefresh) {
-      var timer = this.inputTimer;
+      const timer = this.inputTimer;
       if (typeof timer !== 'undefined') {
         clearTimeout(timer);
       }

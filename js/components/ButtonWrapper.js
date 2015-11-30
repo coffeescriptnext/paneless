@@ -5,7 +5,7 @@ import React from 'react';
 // also be assigned a class, an onclick function, and text or HTML content.
 export default class ButtonWrapper extends React.Component {
   render() {
-    var className = (this.props.showButton ? this.props.position : 'hidden')
+    const className = (this.props.showButton ? this.props.position : 'hidden')
       + (this.props.largeButton ? ' large' : '');
 
     return (

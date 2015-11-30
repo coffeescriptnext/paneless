@@ -12,8 +12,8 @@ export default class PaneCodeLocationSelector extends React.Component {
   render() {
     // typeCodeLocations contains the valid code locations for the pane's
     // current type.
-    var typeCodeLocations = PANE_CODE_LOCATIONS[this.props.type];
-    var typeCodeLocationsKeys = Object.keys(typeCodeLocations);
+    const typeCodeLocations = PANE_CODE_LOCATIONS[this.props.type];
+    const typeCodeLocationsKeys = Object.keys(typeCodeLocations);
 
     // If the current pane type has no associated code locations (e.g. an output
     // pane), do not return an element.

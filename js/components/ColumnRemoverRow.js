@@ -18,7 +18,7 @@ export default class ColumnRemoverRow extends React.Component {
 
   render() {
     // This <button> keeps the column remover buttons in line with the columns.
-    var emptyRowRemover = (
+    const emptyRowRemover = (
       <div className='pane adder col'>
         <ButtonWrapper
           content='-'

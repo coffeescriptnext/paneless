@@ -9,8 +9,8 @@ export default class Pane extends React.Component {
   }
 
   render() {
-    var type = this.props.type;
-    var content = this.props.content;
+    const type = this.props.type;
+    const content = this.props.content;
 
     if (type === 'output') {
       return (
