@@ -1,10 +1,3 @@
-export const PANE_PROPERTIES = {
-  type,
-  active,
-  codeLocation,
-  content,
-};
-
 export const SET_PANE_PROPERTY = 'SET_PANE_PROPERTY';
 export const ADD_ROW = 'ADD_ROW';
 export const ADD_COLUMN = 'ADD_COLUMN';
@@ -23,6 +16,7 @@ function makeActionCreator(type, ...argNames) {
 
 export const setPaneProperty = makeActionCreator(
   SET_PANE_PROPERTY,
+  'id',
   'name',
   'value',
 );

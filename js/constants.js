@@ -2,12 +2,13 @@
 export const TYPING_TIMEOUT = 250;
 
 // Values for the default pane type. Used when adding new rows / columns.
-export const PANE_DEFAULTS = {
+export const PANE_DEFAULTS = id => ({
+  id,
   active: false,
   type: 'js',
   codeLocation: 'head',
   content: '',
-};
+});
 
 // Default code locations for the different code types. Used when the type of
 // a pane is changed and a valid code location needs to be provided.
@@ -19,27 +20,40 @@ export const CODE_LOCATION_DEFAULTS = {
 };
 
 // The default grid that is shown upon loading a page.
-export const GRID_ATTRIBUTE_DEFAULTS = [[{
-  active: true,
-  type: 'html',
-  codeLocation: 'body',
-  content: '',
-}, {
-  active: true,
-  type: 'js',
-  codeLocation: 'window.onload',
-  content: '',
-}], [{
-  active: true,
-  type: 'css',
-  codeLocation: 'head',
-  content: '',
-}, {
-  active: true,
-  type: 'output',
-  codeLocation: '',
-  content: '',
-}]];
+export function GRID_ATTRIBUTE_DEFAULTS(makeID) {
+  let ids = range(4).map(makeID);
+
+  return {
+    rows: 2,
+    columns: 2,
+    paneOrder: ids,
+    panes: [{
+      id: id[0],
+      active: true,
+      type: 'html',
+      codeLocation: 'body',
+      content: '',
+    }, {
+      id: id[1],
+      active: true,
+      type: 'js',
+      codeLocation: 'window.onload',
+      content: '',
+    }, {
+      id: id[2],
+      active: true,
+      type: 'css',
+      codeLocation: 'head',
+      content: '',
+    }, {
+      id: id[3],
+      active: true,
+      type: 'output',
+      codeLocation: '',
+      content: '',
+    }],
+  };
+}
 
 // The full names of the different pane types. Used in the <select> tag for the
 // pane type, and as the placeholder text in the <textarea> tag.
