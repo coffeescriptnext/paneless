@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import PaneGridModel from '../model.js';
 import { GRID_ATTRIBUTE_DEFAULTS } from '../constants.js';
@@ -10,7 +11,7 @@ import Footer from './Footer';
 const model = new PaneGridModel(2, 2, GRID_ATTRIBUTE_DEFAULTS);
 
 // The top-level class for the application's view.
-export default class Paneless extends React.Component {
+class Paneless extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,3 +89,5 @@ export default class Paneless extends React.Component {
     );
   }
 }
+
+export default connect(x => x)(Paneless);
