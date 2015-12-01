@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 import {
   PANE_DEFAULTS,
   PANE_GRID_DEFAULTS,
@@ -28,7 +30,7 @@ function pane(id) {
   };
 }
 
-export default function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
+function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
   const {
     rows,
     cols,
@@ -99,3 +101,19 @@ export default function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
       return state;
   }
 }
+
+function ui(state = { autoRefresh: true }, action) {
+  switch (action.type) {
+    case SET_AUTO_REFRESH:
+      return {
+        autoRefresh: action.value
+      };
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  paneGrid,
+  ui,
+});
