@@ -4,9 +4,20 @@ import { connect } from 'react-redux';
 import ButtonWrapper from './ButtonWrapper';
 import RefreshSettings from './RefreshSettings';
 
+import {
+  refresh,
+  setAutoRefresh, 
+} from '../actions'
+
 // Represents the footer div.
 class Footer extends React.Component {
   render() {
+    const {
+      dispatch,
+      refresh,
+      autoRefresh,
+    } = this.props;
+
     // This <div> is used to keep the actual footer content in line with the
     // panes, leaving the space below the row-remover buttons blank.
     const emptyRowRemover = (
@@ -22,9 +33,9 @@ class Footer extends React.Component {
       <div className='footer'>
         {emptyRowRemover}
         <RefreshSettings
-          refresh={this.props.refresh}
-          autoRefresh={this.props.autoRefresh}
-          setAutoRefresh={this.props.setAutoRefresh}
+          refresh={_ => dispatch(refresh())}
+          autoRefresh={autoRefresh}
+          setAutoRefresh={value => dispatch(setAutoRefresh(value))}
         />
       </div>
     );
