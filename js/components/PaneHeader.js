@@ -32,7 +32,7 @@ export default class PaneHeader extends React.Component {
         <ButtonWrapper
           position='center-y right'
           content='X'
-          onClick={_ => setActive(false)}
+          onClick={_ => setActive(id, false)}
           showButton
         />
       </div>

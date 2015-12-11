@@ -37,7 +37,7 @@ export default class PaneContainer extends React.Component {
           <ButtonWrapper
             position='center-x center-y'
             content='+'
-            onClick={_ => setActive(true)}
+            onClick={_ => setActive(pane.id, true)}
             showButton
           />
         </div>
