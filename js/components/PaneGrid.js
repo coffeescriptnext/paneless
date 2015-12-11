@@ -29,7 +29,7 @@ class PaneGrid extends React.Component {
       <div className='pane-container'>
         <ColumnRemoverRow
           cols={cols}
-          addCol={_ => dispatch(addColumn())}
+          addCol={col => dispatch(addColumn(col))}
           removeCol={col => dispatch(removeColumn(col))}
         />
         {range(model.rows).map(function(row) {

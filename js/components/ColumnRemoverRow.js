@@ -8,15 +8,13 @@ import RowColumnController from './RowColumnController';
 // This class represents the row at the top of the screen that contains the
 // column removal buttons for each column.
 export default class ColumnRemoverRow extends React.Component {
-  addCol(col) {
-    this.props.addCol(col);
-  }
-
-  removeCol(col) {
-    this.props.removeCol(col);
-  }
-
   render() {
+    const {
+      cols,
+      addCol,
+      removeCol,
+    } = this.props;
+
     // This <button> keeps the column remover buttons in line with the columns.
     const emptyRowRemover = (
       <div className='pane adder col'>
@@ -30,15 +28,15 @@ export default class ColumnRemoverRow extends React.Component {
     return (
       <div className='pane-row adder'>
         {emptyRowRemover}
-        {range(this.props.cols).map(function(col) {
+        {range(cols).map(function(col) {
           return (
             <RowColumnController
               orientation='row'
               isFirst={col === 0}
-              allowRemoval={this.props.cols > 1}
-              addBefore={this.addCol.bind(this, col)}
-              addAfter={this.addCol.bind(this, col + 1)}
-              remove={this.removeCol.bind(this, col)}
+              allowRemoval={cols > 1}
+              addBefore={_ => addCol(col)}
+              addAfter={_ => addCol(col + 1)}
+              remove={_ => removeCol(col)}
             />
           );
         }, this)}
