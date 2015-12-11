@@ -81,7 +81,7 @@ function getOutput(panes) {
 function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
   const {
     rows,
-    cols,
+    columns,
     panes,
     paneOrder
   } = state;
@@ -106,8 +106,8 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
         panes: panes.map(p => pane(p.id)(p, action)),
       });
     case ADD_ROW:
-      const insertAt = cols * action.index;
-      ids = range(cols).map(getID);
+      const insertAt = columns * action.index;
+      ids = range(columns).map(getID);
       newPanes = ids.map(id => pane(id)(undefined, action));
 
       return Object.assign({}, state, {
@@ -120,8 +120,8 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
         panes: [].concat(panes, newPanes),
       });
     case REMOVE_ROW:
-      const removeStart = cols * action.index;
-      const removeEnd = removeStart + cols;
+      const removeStart = columns * action.index;
+      const removeEnd = removeStart + columns;
       ids = paneOrder.slice(removeStart, removeEnd);
 
       return Object.assign({}, state, {
@@ -137,9 +137,9 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
         let newPanes = ids.map(id => pane(id)(undefined, action));
 
         return Object.assign({}, state, {
-          cols: cols + 1,
+          columns: columns + 1,
           paneOrder: range(rows).reduce(
-            (acc, i) => acc.concat(paneOrder.slice(i * cols, (i + 1))),
+            (acc, i) => acc.concat(paneOrder.slice(i * columns, (i + 1))),
             []
           ).map(
             (arr, i) => arr.concat(ids[i])
