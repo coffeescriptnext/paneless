@@ -10,7 +10,7 @@ export default class RefreshSettings extends React.Component {
       refresh,
       autoRefresh,
       setAutoRefresh,
-    } = props;
+    } = this.props;
 
     return (
       <div className='pane'>

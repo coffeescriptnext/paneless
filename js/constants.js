@@ -1,3 +1,5 @@
+import { range } from './util';
+
 // Time in milliseconds to wait after the user stops typing to update the UI.
 export const TYPING_TIMEOUT = 250;
 
@@ -28,25 +30,25 @@ export function GRID_ATTRIBUTE_DEFAULTS(makeID) {
     columns: 2,
     paneOrder: ids,
     panes: [{
-      id: id[0],
+      id: ids[0],
       active: true,
       type: 'html',
       codeLocation: 'body',
       content: '',
     }, {
-      id: id[1],
+      id: ids[1],
       active: true,
       type: 'js',
       codeLocation: 'window.onload',
       content: '',
     }, {
-      id: id[2],
+      id: ids[2],
       active: true,
       type: 'css',
       codeLocation: 'head',
       content: '',
     }, {
-      id: id[3],
+      id: ids[3],
       active: true,
       type: 'output',
       codeLocation: '',

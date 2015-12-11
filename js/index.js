@@ -12,8 +12,10 @@ const store = createStore(root);
 // Render the top-level class of the application.
 ReactDOM.render(
   <Provider store={store}>
-    <PaneGrid />
-    <Footer />
+    <div>
+      <PaneGrid />
+      <Footer />
+    </div>
   </Provider>,
   document.getElementById('root')
 );

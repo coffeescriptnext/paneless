@@ -6,7 +6,7 @@ import RefreshSettings from './RefreshSettings';
 
 import {
   refresh,
-  setAutoRefresh, 
+  setAutoRefresh,
 } from '../actions'
 
 // Represents the footer div.
@@ -42,4 +42,4 @@ class Footer extends React.Component {
   }
 }
 
-export default connect(Footer)(state => state.ui);
+export default connect(state => state.ui)(Footer);

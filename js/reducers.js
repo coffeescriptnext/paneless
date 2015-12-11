@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import {
   PANE_DEFAULTS,
-  PANE_GRID_DEFAULTS,
+  GRID_ATTRIBUTE_DEFAULTS,
 } from './constants.js';
 
 import {
@@ -12,6 +12,7 @@ import {
   ADD_COLUMN,
   REMOVE_ROW,
   REMOVE_COLUMN,
+  SET_AUTO_REFRESH,
 } from './actions';
 
 import getID from './id-generator';
@@ -76,7 +77,7 @@ function getOutput(panes) {
   }).join('');
 }
 
-function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
+function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
   const {
     rows,
     cols,

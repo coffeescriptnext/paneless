@@ -32,7 +32,7 @@ class PaneGrid extends React.Component {
           addCol={col => dispatch(addColumn(col))}
           removeCol={col => dispatch(removeColumn(col))}
         />
-        {range(model.rows).map(function(row) {
+        {range(rows).map(function(row) {
           return (
             <PaneRow
               paneRow={panes.slice(row * cols, (row + 1) * cols)}
@@ -55,4 +55,4 @@ class PaneGrid extends React.Component {
   }
 }
 
-export default connect(PaneGrid)(state => state.paneGrid);
+export default connect(state => state.paneGrid)(PaneGrid);
