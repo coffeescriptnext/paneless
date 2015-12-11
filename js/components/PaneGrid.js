@@ -6,32 +6,47 @@ import { range } from '../util';
 import ColumnRemoverRow from './ColumnRemoverRow';
 import PaneRow from './PaneRow';
 
+import {
+  setPaneProperty,
+  addRow,
+  addColumn,
+  removeRow,
+  removeColumn,
+} from '../actions';
+
 // This class represents a 2D grid of panes.
 class PaneGrid extends React.Component {
   render() {
-    const model = this.props.model;
-    const callModelFunction = this.props.callModelFunction;
+    const {
+      dispatch,
+      rows,
+      cols,
+      paneOrder,
+      panes,
+    } = this.props;
 
     return (
       <div className='pane-container'>
         <ColumnRemoverRow
-          cols={model.cols}
-          addCol={callModelFunction('addCol')}
-          removeCol={callModelFunction('removeCol')}
+          cols={cols}
+          addCol={_ => dispatch(addColumn())}
+          removeCol={col => dispatch(removeColumn(col))}
         />
         {range(model.rows).map(function(row) {
           return (
             <PaneRow
               row={row}
-              paneRow={model.grid[row]}
-              moreThanOneRow={model.rows > 1}
-              addRowAbove={callModelFunction('addRow').bind(this, row)}
-              addRowBelow={callModelFunction('addRow').bind(this, row + 1)}
-              removeRow={callModelFunction('removeRow').bind(this, row)}
-              setActive={callModelFunction('setActive')}
-              setType={callModelFunction('setType')}
-              setCodeLocation={callModelFunction('setCodeLocation')}
-              setContent={this.props.setContent}
+              panes={panes}
+              moreThanOneRow={rows > 1}
+              addRowAbove={_ => dispatch(addRow(row))}
+              addRowBelow={_ => dispatch(addRow(row + 1))}
+              removeRow={_ => dispatch(removeRow(row))}
+              setActive={(id, value) =>
+                dispatch(setPaneProperty(id, 'active', value))}
+              setType={(id, value) =>
+                dispatch(setPaneProperty(id, 'type', value))}
+              setCodeLocation={(id, value) =>
+                dispatch(setPaneProperty(id, 'codeLocation', value))}
             />
           );
         }, this)}
