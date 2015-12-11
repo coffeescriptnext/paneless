@@ -18,6 +18,7 @@ import {
 import getID from './id-generator';
 
 import {
+  range,
   makeHTMLTag,
 } from './util';
 

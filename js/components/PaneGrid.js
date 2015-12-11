@@ -20,7 +20,7 @@ class PaneGrid extends React.Component {
     const {
       dispatch,
       rows,
-      cols,
+      columns,
       paneOrder,
       panes,
     } = this.props;
@@ -28,14 +28,14 @@ class PaneGrid extends React.Component {
     return (
       <div className='pane-container'>
         <ColumnRemoverRow
-          cols={cols}
+          cols={columns}
           addCol={col => dispatch(addColumn(col))}
           removeCol={col => dispatch(removeColumn(col))}
         />
         {range(rows).map(function(row) {
           return (
             <PaneRow
-              paneRow={panes.slice(row * cols, (row + 1) * cols)}
+              paneRow={panes.slice(row * columns, (row + 1) * columns)}
               isFirst={row === 0}
               moreThanOneRow={rows > 1}
               addRowAbove={_ => dispatch(addRow(row))}

@@ -11,6 +11,7 @@ export default class PaneHeader extends React.Component {
     const {
       id,
       type,
+      codeLocation,
       setType,
       setCodeLocation,
       setActive,
