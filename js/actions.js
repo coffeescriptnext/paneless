@@ -1,3 +1,5 @@
+export const REFRESH = 'REFRESH';
+
 export const SET_PANE_PROPERTY = 'SET_PANE_PROPERTY';
 
 export const ADD_ROW = 'ADD_ROW';
@@ -16,6 +18,8 @@ function makeActionCreator(type, ...argNames) {
     return action;
   };
 }
+
+export const refresh = makeActionCreator(REFRESH);
 
 export const setPaneProperty = makeActionCreator(
   SET_PANE_PROPERTY,

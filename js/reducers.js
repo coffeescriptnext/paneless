@@ -6,6 +6,7 @@ import {
 } from './constants.js';
 
 import {
+  REFRESH,
   SET_PANE_PROPERTY,
   ADD_ROW,
   ADD_COLUMN,
@@ -14,6 +15,10 @@ import {
 } from './actions';
 
 import getID from './id-generator';
+
+import {
+  makeHTMLTag,
+} from './util';
 
 function pane(id) {
   return function(state = PANE_DEFAULTS(id), action) {
@@ -30,6 +35,47 @@ function pane(id) {
   };
 }
 
+function getOutput(panes) {
+  let HEAD = 0, BODY = 1;
+
+  function pairAppend(pair, index, toAdd) {
+    if (index === 0) {
+      return [pair[0] + toAdd, pair[1]];
+    } else if (index === 1) {
+      return [pair[0], pair[1] + toAdd];
+    } else {
+      return pair;
+    }
+  }
+
+  return panes.reduce(function(acc, pane) {
+    if (pane.active) {
+      switch (pane.type) {
+        case 'html':
+          switch (pane.codeLocation) {
+            case 'body':
+              return pairAppend(acc, BODY, pane.content);
+          }
+        case 'css':
+          switch (pane.codeLocation) {
+            case 'head':
+              return pairAppend(acc, HEAD, makeHTMLTag('style', pane.content));
+          }
+        case 'js':
+          switch (pane.codeLocation) {
+            case 'head':
+              return pairAppend(acc, HEAD, makeHTMLTag('script', pane.content));
+            case 'window.onload':
+              return pairAppend(acc, HEAD, makeHTMLTag(
+                'script',
+                'window.onload = ' + pane.content
+              ));
+          }
+      }
+    }
+  }).join('');
+}
+
 function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
   const {
     rows,
@@ -41,6 +87,18 @@ function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
   let ids, newPanes;
 
   switch (action.type) {
+    case REFRESH:
+      const output = getOutput(panes);
+
+      return Object.assign({}, state, {
+        panes: panes.map(function(p) {
+          if (p.type === 'output') {
+            p.content = output;
+          } else {
+            return p;
+          }
+        }),
+      });
     case SET_PANE_PROPERTY:
       return Object.assign({}, state, {
         panes: panes.map(p => pane(p.id)(p, action)),
