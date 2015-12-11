@@ -8,6 +8,7 @@ import {
 // This class represents the <select> tag that lets the user choose the type of
 // a pane (HTML, CSS, Javascript, or output).
 export default class PaneTypeSelector extends React.Component {
+  // TODO: this should be done in an action, not in the component.
   setType(event) {
     const type = event.target.value;
     this.props.setType(type);
