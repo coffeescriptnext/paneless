@@ -139,24 +139,30 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
         return Object.assign({}, state, {
           columns: columns + 1,
           paneOrder: range(rows).reduce(
-            (acc, i) => acc.concat(paneOrder.slice(i * columns, (i + 1))),
+            (acc, i) => acc.concat(
+              [paneOrder.slice(i * columns, (i + 1) * columns)]
+            ),
             []
-          ).map(
-            (arr, i) => arr.concat(ids[i])
-          ).reduce(
+          ).map((arr, i) => [].concat(
+              arr.slice(0, action.index),
+              [ids[i]],
+              arr.slice(action.index)
+          )).reduce(
             (acc, p) => acc.concat(p),
             []
           ),
           panes: [].concat(panes, newPanes),
         });
       case REMOVE_COLUMN:
+        const newPaneOrder = paneOrder.filter(
+          (_, i) => i % columns !== action.index
+        );
+
         return Object.assign({}, state, {
-          rows: rows - 1,
-          paneOrder: paneOrder.filter(
-            i => i % rows === action.index
-          ),
+          columns: columns - 1,
+          paneOrder: newPaneOrder,
           panes: panes.filter(
-            p => p.index % rows === action.index
+            p => newPaneOrder.indexOf(p.id) !== -1
           ),
         });
     default:

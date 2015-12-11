@@ -33,11 +33,13 @@ class PaneGrid extends React.Component {
           removeCol={col => dispatch(removeColumn(col))}
         />
         {range(rows).map(function(row) {
-          const paneRow = paneOrder.slice(row * columns, (row + 1) * columns)
+          const paneIDs = paneOrder.slice(row * columns, (row + 1) * columns)
 
           return (
             <PaneRow
-              paneRow={panes.filter(p => paneRow.indexOf(p.id) !== -1)}
+              paneRow={paneIDs.map(id =>
+                panes.filter(pane => pane.id === id)[0]
+              )}
               isFirst={row === 0}
               moreThanOneRow={rows > 1}
               addRowAbove={_ => dispatch(addRow(row))}
