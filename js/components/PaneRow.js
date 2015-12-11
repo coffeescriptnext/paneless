@@ -8,31 +8,38 @@ import PaneContainer from './PaneContainer';
 // This class represents one row of panes.
 export default class PaneRow extends React.Component {
   render() {
-    const paneRow = this.props.paneRow;
+    const {
+      paneRow,
+      isFirst,
+      moreThanOneRow,
+      addRowAbove,
+      addRowBelow,
+      removeRow,
+      setActive,
+      setType,
+      setCodeLocation,
+    } = this.props;
 
     return (
       <div className='pane-row'>
         <RowColumnController
           orientation='col'
-          isFirst={this.props.row === 0}
-          allowRemoval={this.props.moreThanOneRow}
-          addBefore={this.props.addRowAbove}
-          addAfter={this.props.addRowBelow}
-          remove={this.props.removeRow}
+          isFirst={isFirst}
+          allowRemoval={moreThanOneRow}
+          addBefore={addRowAbove}
+          addAfter={addRowBelow}
+          remove={removeRow}
         />
-        {range(paneRow.length).map(function(col) {
+        {paneRow.map(function(pane) {
           return (
             <PaneContainer
-              row={this.props.row}
-              col={col}
-              pane={paneRow[col]}
-              setActive={this.props.setActive}
-              setType={this.props.setType}
-              setCodeLocation={this.props.setCodeLocation}
-              setContent={this.props.setContent}
+              pane={pane}
+              setActive={setActive}
+              setType={setType}
+              setCodeLocation={setCodeLocation}
             />
           );
-        }, this)}
+        })}
       </div>
     );
   }

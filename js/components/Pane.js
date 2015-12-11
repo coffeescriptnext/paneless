@@ -4,13 +4,11 @@ import { PANE_TYPE_FULL_NAMES } from '../constants';
 
 // This class represents the <textarea> or <iframe> tag inside a pane.
 export default class Pane extends React.Component {
-  setContent(event) {
-    this.props.setContent(event.target.value);
-  }
-
   render() {
-    const type = this.props.type;
-    const content = this.props.content;
+    const {
+      type,
+      content,
+    } = this.props;
 
     if (type === 'output') {
       return (
@@ -24,8 +22,7 @@ export default class Pane extends React.Component {
         <textarea
           className='content'
           placeholder={PANE_TYPE_FULL_NAMES[type]}
-          defaultValue={content}
-          onChange={this.setContent}
+          value={content}
         />
       );
     }

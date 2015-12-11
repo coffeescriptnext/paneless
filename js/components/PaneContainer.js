@@ -7,36 +7,27 @@ import ButtonWrapper from './ButtonWrapper';
 // This class contains a pane's header and content. If the pane is inactive,
 // it allows the user to reactivate the pane.
 export default class PaneContainer extends React.Component {
-  setActive(active) {
-    this.props.setActive(this.props.row, this.props.col, active);
-  }
-
-  // handleEvent is a generic event-handling function. It allows event-handling
-  // functions that are called with row and column numbers to be easily called
-  // without wrappers for each one.
-  handleEvent(f) {
-    return function(val) {
-      f(this.props.row, this.props.col, val);
-    }.bind(this);
-  }
-
   render() {
-    const pane = this.props.pane;
+    const {
+      pane,
+      setActive,
+      setType,
+      setCodeLocation,
+    } = this.props;
 
     if (pane.active) {
       return (
         <div className='pane'>
           <PaneHeader
+            id={pane.id}
             type={pane.type}
-            codeLocation={pane.codeLocation}
-            setActive={this.handleEvent(this.props.setActive)}
-            setType={this.handleEvent(this.props.setType)}
-            setCodeLocation={this.handleEvent(this.props.setCodeLocation)}
+            setActive={setActive}
+            setType={setType}
+            setCodeLocation={setCodeLocation}
           />
           <Pane
             type={pane.type}
             content={pane.content}
-            setContent={this.handleEvent(this.props.setContent)}
           />
         </div>
       );
@@ -46,7 +37,7 @@ export default class PaneContainer extends React.Component {
           <ButtonWrapper
             position='center-x center-y'
             content='+'
-            onClick={this.setActive.bind(this, true)}
+            onClick={_ => setActive(true)}
             showButton
           />
         </div>

@@ -35,8 +35,8 @@ class PaneGrid extends React.Component {
         {range(model.rows).map(function(row) {
           return (
             <PaneRow
-              row={row}
-              panes={panes}
+              paneRow={panes.slice(row * cols, (row + 1) * cols)}
+              isFirst={row === 0}
               moreThanOneRow={rows > 1}
               addRowAbove={_ => dispatch(addRow(row))}
               addRowBelow={_ => dispatch(addRow(row + 1))}

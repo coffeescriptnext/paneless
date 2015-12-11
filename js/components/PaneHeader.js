@@ -7,27 +7,31 @@ import ButtonWrapper from './ButtonWrapper';
 // This class represents the header of a pane, which allows the user to change
 // the pane's settings and deactivate it.
 export default class PaneHeader extends React.Component {
-  setInactive() {
-    this.props.setActive(false);
-  }
-
   render() {
+    const {
+      id,
+      type,
+      setType,
+      setCodeLocation,
+      setActive,
+    } = this.props;
+
     return (
       <div className='header'>
         <PaneTypeSelector
-          type={this.props.type}
-          setType={this.props.setType}
-          setCodeLocation={this.props.setCodeLocation}
+          type={type}
+          setType={t => setType(id, t)}
+          setCodeLocation={cl => setCodeLocation(id, cl)}
         />
         <PaneCodeLocationSelector
-          type={this.props.type}
-          codeLocation={this.props.codeLocation}
-          setCodeLocation={this.props.setCodeLocation}
+          type={type}
+          codeLocation={codeLocation}
+          setCodeLocation={cl => setCodeLocation(id, cl)}
         />
         <ButtonWrapper
           position='center-y right'
           content='X'
-          onClick={this.setInactive}
+          onClick={_ => setActive(false)}
           showButton
         />
       </div>
