@@ -21,7 +21,7 @@ export const setPaneProperty = makeActionCreator(
   SET_PANE_PROPERTY,
   'id',
   'name',
-  'value',
+  'value'
 );
 
 export const addRow = makeActionCreator(ADD_ROW, 'index');

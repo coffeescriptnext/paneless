@@ -11,7 +11,7 @@ import {
   ADD_COLUMN,
   REMOVE_ROW,
   REMOVE_COLUMN,
-};
+} from './actions';
 
 import getID from './id-generator';
 
@@ -38,6 +38,8 @@ function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
     paneOrder
   } = state;
 
+  let ids, newPanes;
+
   switch (action.type) {
     case SET_PANE_PROPERTY:
       return Object.assign({}, state, {
@@ -45,8 +47,8 @@ function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
       });
     case ADD_ROW:
       const insertAt = cols * action.index;
-      const ids = range(cols).map(getID);
-      const newPanes = ids.map(id => pane(id)(undefined, action));
+      ids = range(cols).map(getID);
+      newPanes = ids.map(id => pane(id)(undefined, action));
 
       return Object.assign({}, state, {
         rows: rows + 1,
@@ -60,7 +62,7 @@ function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
     case REMOVE_ROW:
       const removeStart = cols * action.index;
       const removeEnd = removeStart + cols;
-      const ids = paneOrder.slice(removeStart, removeEnd);
+      ids = paneOrder.slice(removeStart, removeEnd);
 
       return Object.assign({}, state, {
         rows: rows - 1,
@@ -71,8 +73,8 @@ function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
         panes: panes.filter(p => ids.indexOf(p.id) === -1),
       });
       case ADD_COLUMN:
-        const ids = range(rows).map(getID);
-        const newPanes = ids.map(id => pane(id)(undefined, action));
+        ids = range(rows).map(getID);
+        let newPanes = ids.map(id => pane(id)(undefined, action));
 
         return Object.assign({}, state, {
           cols: cols + 1,
@@ -92,10 +94,10 @@ function paneGrid(state = PANE_GRID_DEFAULTS(getID), action) {
           rows: rows - 1,
           paneOrder: paneOrder.filter(
             i => i % rows === action.index
-          );
+          ),
           panes: panes.filter(
             p => p.index % rows === action.index
-          );
+          ),
         });
     default:
       return state;
