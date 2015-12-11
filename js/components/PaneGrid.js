@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { range } from '../util';
 
@@ -6,7 +7,7 @@ import ColumnRemoverRow from './ColumnRemoverRow';
 import PaneRow from './PaneRow';
 
 // This class represents a 2D grid of panes.
-export default class PaneGrid extends React.Component {
+class PaneGrid extends React.Component {
   render() {
     const model = this.props.model;
     const callModelFunction = this.props.callModelFunction;
@@ -38,3 +39,5 @@ export default class PaneGrid extends React.Component {
     );
   }
 }
+
+export default connect(PaneGrid)(state => state.paneGrid);

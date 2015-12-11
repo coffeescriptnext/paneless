@@ -4,14 +4,16 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import root from './reducers';
-import Paneless from './components/Paneless';
+import PaneGrid from './components/PaneGrid';
+import Footer from './components/Footer';
 
 const store = createStore(root);
 
 // Render the top-level class of the application.
 ReactDOM.render(
   <Provider store={store}>
-    <Paneless />
+    <PaneGrid />
+    <Footer />
   </Provider>,
   document.getElementById('root')
 );
