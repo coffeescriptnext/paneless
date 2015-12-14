@@ -1,6 +1,8 @@
 import React from 'react';
 import PureComponent from 'react-pure-render/component';
 
+import TextareaWrapper from './TextareaWrapper';
+
 import { PANE_TYPE_FULL_NAMES } from '../constants';
 
 // This class represents the <textarea> or <iframe> tag inside a pane.
@@ -22,7 +24,7 @@ export default class Pane extends PureComponent {
       );
     } else {
       return (
-        <textarea
+        <TextareaWrapper
           className='content'
           placeholder={PANE_TYPE_FULL_NAMES[type]}
           value={content}
