@@ -14,7 +14,6 @@ class Footer extends React.Component {
   render() {
     const {
       dispatch,
-      refresh,
       autoRefresh,
     } = this.props;
 

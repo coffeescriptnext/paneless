@@ -75,7 +75,9 @@ function getOutput(panes) {
           }
       }
     }
-  }).join('');
+
+    return acc;
+  }, ['', '']).join('');
 }
 
 function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
@@ -96,14 +98,13 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
         panes: panes.map(function(p) {
           if (p.type === 'output') {
             p.content = output;
-          } else {
-            return p;
           }
+          return p;
         }),
       });
     case SET_PANE_PROPERTY:
       return Object.assign({}, state, {
-        panes: panes.map(p => pane(p.id)(p, action)),
+        panes: state.panes.map(p => pane(p.id)(p, action)),
       });
     case ADD_ROW:
       const insertAt = columns * action.index;
