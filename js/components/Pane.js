@@ -6,8 +6,10 @@ import { PANE_TYPE_FULL_NAMES } from '../constants';
 export default class Pane extends React.Component {
   render() {
     const {
+      id,
       type,
       content,
+      setContent,
     } = this.props;
 
     if (type === 'output') {
@@ -23,6 +25,7 @@ export default class Pane extends React.Component {
           className='content'
           placeholder={PANE_TYPE_FULL_NAMES[type]}
           value={content}
+          onChange={e => setContent(id, e.target.value)}
         />
       );
     }

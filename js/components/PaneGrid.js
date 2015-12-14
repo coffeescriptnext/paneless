@@ -51,6 +51,8 @@ class PaneGrid extends React.Component {
                 dispatch(setPaneProperty(id, 'type', value))}
               setCodeLocation={(id, value) =>
                 dispatch(setPaneProperty(id, 'codeLocation', value))}
+              setContent={(id, value) =>
+                dispatch(setPaneProperty(id, 'content', value))}
             />
           );
         }, this)}

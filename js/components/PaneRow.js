@@ -18,6 +18,7 @@ export default class PaneRow extends React.Component {
       setActive,
       setType,
       setCodeLocation,
+      setContent,
     } = this.props;
 
     return (
@@ -37,6 +38,7 @@ export default class PaneRow extends React.Component {
               setActive={setActive}
               setType={setType}
               setCodeLocation={setCodeLocation}
+              setContent={setContent}
             />
           );
         })}

@@ -13,6 +13,7 @@ export default class PaneContainer extends React.Component {
       setActive,
       setType,
       setCodeLocation,
+      setContent,
     } = this.props;
 
     if (pane.active) {
@@ -26,8 +27,10 @@ export default class PaneContainer extends React.Component {
             setCodeLocation={setCodeLocation}
           />
           <Pane
+            id={pane.id}
             type={pane.type}
             content={pane.content}
+            setContent={setContent}
           />
         </div>
       );
