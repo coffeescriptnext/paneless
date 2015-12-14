@@ -3,7 +3,6 @@ import { CODE_LOCATION_DEFAULTS } from './constants';
 export const REFRESH = 'REFRESH';
 
 export const SET_PANE_PROPERTY = 'SET_PANE_PROPERTY';
-export const SET_PANE_TYPE = 'SET_PANE_TYPE';
 
 export const ADD_ROW = 'ADD_ROW';
 export const ADD_COLUMN = 'ADD_COLUMN';
@@ -24,21 +23,27 @@ function makeActionCreator(type, ...argNames) {
 
 export const refresh = makeActionCreator(REFRESH);
 
-export const setPaneProperty = makeActionCreator(
-  SET_PANE_PROPERTY,
-  'id',
-  'name',
-  'value'
-);
-
-export function setPaneType(id, value) {
-  return function(dispatch) {
-    dispatch(setPaneProperty(id, 'type', value));
-    dispatch(setPaneProperty(
+export function setPaneProperty(id, name, value) {
+  return function(dispatch, getState) {
+    dispatch({
+      type: SET_PANE_PROPERTY,
       id,
-      'codeLocation',
-      CODE_LOCATION_DEFAULTS[value]
-    ));
+      name,
+      value,
+    });
+
+    if (name === 'type') {
+      dispatch({
+        type: SET_PANE_PROPERTY,
+        id,
+        name: 'codeLocation',
+        value: CODE_LOCATION_DEFAULTS[value],
+      });
+    }
+
+    if (getState().ui.autoRefresh) {
+      dispatch(refresh());
+    }
   }
 }
 

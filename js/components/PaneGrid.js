@@ -8,7 +8,6 @@ import PaneRow from './PaneRow';
 
 import {
   setPaneProperty,
-  setPaneType,
   addRow,
   addColumn,
   removeRow,
@@ -49,7 +48,7 @@ class PaneGrid extends React.Component {
               setActive={(id, value) =>
                 dispatch(setPaneProperty(id, 'active', value))}
               setType={(id, value) =>
-                dispatch(setPaneType(id, value))}
+                dispatch(setPaneProperty(id, 'type', value))}
               setCodeLocation={(id, value) =>
                 dispatch(setPaneProperty(id, 'codeLocation', value))}
               setContent={(id, value) =>
