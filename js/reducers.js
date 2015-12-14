@@ -22,11 +22,13 @@ import {
   makeHTMLTag,
 } from './util';
 
+// Reducer for an individual pane.
 function pane(id) {
   return function(state = PANE_DEFAULTS(id), action) {
     switch (action.type) {
       case SET_PANE_PROPERTY:
         if (action.id === state.id) {
+          // Update the pane's property.
           return Object.assign({}, state, {
             [action.name]: action.value,
           });
@@ -37,6 +39,8 @@ function pane(id) {
   };
 }
 
+// Given an array of panes, returns <head> and <body> content for the output
+// panes.
 function getOutput(panes) {
   let HEAD = 0, BODY = 1;
 
@@ -80,6 +84,7 @@ function getOutput(panes) {
   }, ['', '']).join('');
 }
 
+// Reducer for the entire grid of panes.
 function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
   const {
     rows,
@@ -91,6 +96,7 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
   let ids, newPanes;
 
   switch (action.type) {
+    // Calculate the new output pane content, and update each output pane.
     case REFRESH:
       const output = getOutput(panes);
 
@@ -102,10 +108,16 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
           return p;
         }),
       });
+    // Pass the action on to each pane in turn. Since we check for a match
+    // between the pane ID and the action ID, only the correct pane will be
+    // updated.
     case SET_PANE_PROPERTY:
       return Object.assign({}, state, {
         panes: state.panes.map(p => pane(p.id)(p, action)),
       });
+    // Add one to the row count. Create {# columns} new panes with unique
+    // IDs. Then, insert these IDs into the ordered list of IDs, and add the
+    // new panes to the list of panes.
     case ADD_ROW:
       const insertAt = columns * action.index;
       ids = range(columns).map(getID);
@@ -120,6 +132,9 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
         ),
         panes: [].concat(panes, newPanes),
       });
+    // Subtract one from the row count. Calculate the IDs to remove (there
+    // will be {# columns} of them). Then, remove the IDs from the ordered list
+    // of pane IDs, and filter them out of the list of panes.
     case REMOVE_ROW:
       const removeStart = columns * action.index;
       const removeEnd = removeStart + columns;
@@ -133,6 +148,12 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
         ),
         panes: panes.filter(p => ids.indexOf(p.id) === -1),
       });
+      // Add one to the column count. Generate {# rows} new panes with unique
+      // IDs. Add the new panes on to the list of panes.
+      // Adding the new IDs is more difficult. First, cut up the array of
+      // IDs into arrays of rows of IDs. Then, for each row, add the
+      // corresponding new ID into the correct place in the row. Finally,
+      // concatenate the rows back together into one array.
       case ADD_COLUMN:
         ids = range(rows).map(getID);
         let newPanes = ids.map(id => pane(id)(undefined, action));
@@ -154,6 +175,9 @@ function paneGrid(state = GRID_ATTRIBUTE_DEFAULTS(getID), action) {
           ),
           panes: [].concat(panes, newPanes),
         });
+      // First, remove the IDs that should be removed by checking which column
+      // they are in. Then, subtract one from the column count, and filter out
+      // the panes that have been removed.
       case REMOVE_COLUMN:
         const newPaneOrder = paneOrder.filter(
           (_, i) => i % columns !== action.index

@@ -34,6 +34,12 @@ class PaneGrid extends React.Component {
         />
         {range(rows).map(function(row) {
           const paneIDs = paneOrder.slice(row * columns, (row + 1) * columns)
+
+          // For each ID in the row, filter the array of panes to find panes
+          // with that ID. The first (and only) element of the resulting array
+          // should be the pane with that unique ID.
+          // TODO: develop a better solution. This may fail if the application
+          // ends up in an incorrect state.
           const paneRow = paneIDs.map(id =>
             panes.filter(pane => pane.id === id)[0]
           );
