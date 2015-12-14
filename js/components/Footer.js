@@ -22,7 +22,7 @@ class Footer extends React.Component {
     const emptyRowRemover = (
       <div className='pane adder col'>
         <ButtonWrapper
-          content='-'
+          content='+'
           showButton={false}
         />
       </div>
