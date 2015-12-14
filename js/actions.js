@@ -1,6 +1,9 @@
+import { CODE_LOCATION_DEFAULTS } from './constants';
+
 export const REFRESH = 'REFRESH';
 
 export const SET_PANE_PROPERTY = 'SET_PANE_PROPERTY';
+export const SET_PANE_TYPE = 'SET_PANE_TYPE';
 
 export const ADD_ROW = 'ADD_ROW';
 export const ADD_COLUMN = 'ADD_COLUMN';
@@ -27,6 +30,17 @@ export const setPaneProperty = makeActionCreator(
   'name',
   'value'
 );
+
+export function setPaneType(id, value) {
+  return function(dispatch) {
+    dispatch(setPaneProperty(id, 'type', value));
+    dispatch(setPaneProperty(
+      id,
+      'codeLocation',
+      CODE_LOCATION_DEFAULTS[value]
+    ));
+  }
+}
 
 export const addRow = makeActionCreator(ADD_ROW, 'index');
 export const addColumn = makeActionCreator(ADD_COLUMN, 'index');
