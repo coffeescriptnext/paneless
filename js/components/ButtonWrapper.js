@@ -5,16 +5,24 @@ import React from 'react';
 // also be assigned a class, an onclick function, and text or HTML content.
 export default class ButtonWrapper extends React.Component {
   render() {
-    const className = (this.props.showButton ? this.props.position : 'hidden')
-      + (this.props.largeButton ? ' large' : '');
+    const {
+      showButton,
+      position,
+      largeButton,
+      onClick,
+      content,
+    } = this.props;
+
+    const className = (showButton ? position : 'hidden')
+      + (largeButton ? ' large' : '');
 
     return (
       <div className='flex'>
         <button
           className={className}
-          onClick={this.props.onClick}
+          onClick={onClick}
         >
-          {this.props.content}
+          {content}
         </button>
       </div>
     );

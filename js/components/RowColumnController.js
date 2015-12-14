@@ -6,28 +6,37 @@ import ButtonWrapper from './ButtonWrapper';
 // rows or columns before and/or after it.
 export default class RowColumnController extends React.Component {
   render() {
-    var isRow = this.props.orientation === 'row';
+    const {
+      orientation,
+      addBefore,
+      isFirst,
+      remove,
+      allowRemoval,
+      addAfter,
+    } = this.props;
+
+    var isRow = orientation === 'row';
     var beforePos = isRow ? 'center-y left' : 'center-x top';
     var afterPos = isRow ? 'center-y right' : 'center-x bottom';
 
     return (
-      <div className={'pane adder ' + this.props.orientation}>
+      <div className={'pane adder ' + orientation}>
         <ButtonWrapper
           position={beforePos}
           content='+'
-          onClick={this.props.addBefore}
-          showButton={this.props.isFirst}
+          onClick={addBefore}
+          showButton={isFirst}
         />
         <ButtonWrapper
           position='center-x center-y'
           content='-'
-          onClick={this.props.remove}
-          showButton={this.props.allowRemoval}
+          onClick={remove}
+          showButton={allowRemoval}
         />
         <ButtonWrapper
           position={afterPos}
           content='+'
-          onClick={this.props.addAfter}
+          onClick={addAfter}
           showButton
         />
       </div>
