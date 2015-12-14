@@ -39,7 +39,7 @@ export default class ColumnRemoverRow extends React.Component {
               remove={_ => removeCol(col)}
             />
           );
-        }, this)}
+        })}
       </div>
     );
   }

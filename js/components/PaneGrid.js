@@ -55,7 +55,7 @@ class PaneGrid extends React.Component {
                 dispatch(setPaneProperty(id, 'content', value))}
             />
           );
-        }, this)}
+        })}
       </div>
     );
   }

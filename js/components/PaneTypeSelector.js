@@ -25,7 +25,7 @@ export default class PaneTypeSelector extends React.Component {
               {PANE_TYPE_FULL_NAMES[k]}
             </option>
           );
-        }, this)}
+        })}
       </select>
     );
   }
