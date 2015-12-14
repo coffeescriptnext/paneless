@@ -74,7 +74,7 @@ function getOutput(panes) {
             case 'window.onload':
               return pairAppend(acc, HEAD, makeHTMLTag(
                 'script',
-                'window.onload = ' + pane.content
+                'window.onload = ' + pane.content + ';'
               ));
           }
       }
