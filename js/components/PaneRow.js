@@ -1,4 +1,5 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import { range } from '../util.js';
 
@@ -6,7 +7,7 @@ import RowColumnController from './RowColumnController';
 import PaneContainer from './PaneContainer';
 
 // This class represents one row of panes.
-export default class PaneRow extends React.Component {
+export default class PaneRow extends PureComponent {
   render() {
     const {
       paneRow,

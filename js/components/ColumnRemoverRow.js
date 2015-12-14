@@ -1,4 +1,5 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import { range } from '../util';
 
@@ -7,7 +8,7 @@ import RowColumnController from './RowColumnController';
 
 // This class represents the row at the top of the screen that contains the
 // column removal buttons for each column.
-export default class ColumnRemoverRow extends React.Component {
+export default class ColumnRemoverRow extends PureComponent {
   render() {
     const {
       cols,

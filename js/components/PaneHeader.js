@@ -1,4 +1,5 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import PaneTypeSelector from './PaneTypeSelector';
 import PaneCodeLocationSelector from './PaneCodeLocationSelector';
@@ -6,7 +7,7 @@ import ButtonWrapper from './ButtonWrapper';
 
 // This class represents the header of a pane, which allows the user to change
 // the pane's settings and deactivate it.
-export default class PaneHeader extends React.Component {
+export default class PaneHeader extends PureComponent {
   render() {
     const {
       id,

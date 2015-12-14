@@ -1,10 +1,11 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import { PANE_CODE_LOCATIONS } from '../constants';
 
 // This class represents the <select> tag that lets the user choose the code
 // location of a pane.
-export default class PaneCodeLocationSelector extends React.Component {
+export default class PaneCodeLocationSelector extends PureComponent {
   render() {
     const {
       type,

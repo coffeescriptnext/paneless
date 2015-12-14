@@ -1,4 +1,5 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import PaneHeader from './PaneHeader';
 import Pane from './Pane';
@@ -6,7 +7,7 @@ import ButtonWrapper from './ButtonWrapper';
 
 // This class contains a pane's header and content. If the pane is inactive,
 // it allows the user to reactivate the pane.
-export default class PaneContainer extends React.Component {
+export default class PaneContainer extends PureComponent {
   render() {
     const {
       pane,

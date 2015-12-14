@@ -1,4 +1,5 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import {
   CODE_LOCATION_DEFAULTS,
@@ -7,7 +8,7 @@ import {
 
 // This class represents the <select> tag that lets the user choose the type of
 // a pane (HTML, CSS, Javascript, or output).
-export default class PaneTypeSelector extends React.Component {
+export default class PaneTypeSelector extends PureComponent {
   render() {
     const {
       type,

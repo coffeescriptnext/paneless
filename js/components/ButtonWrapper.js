@@ -1,9 +1,10 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 // This class is a wrapper for a <button> tag. The button can be visible or
 // hidden, and the button's text can be small or large. The button itself can
 // also be assigned a class, an onclick function, and text or HTML content.
-export default class ButtonWrapper extends React.Component {
+export default class ButtonWrapper extends PureComponent {
   // TODO: replace with pure-render-decorator and
   // babel-plugin-transform-decorators.
   shouldComponentUpdate(nextProps) {

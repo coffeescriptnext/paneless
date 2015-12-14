@@ -1,10 +1,11 @@
 import React from 'react';
+import PureComponent from 'react-pure-render/component';
 
 import ButtonWrapper from './ButtonWrapper';
 
 // This class allows the user to remove the associated row or column, and to add
 // rows or columns before and/or after it.
-export default class RowColumnController extends React.Component {
+export default class RowColumnController extends PureComponent {
   render() {
     const {
       orientation,
