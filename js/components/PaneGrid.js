@@ -40,7 +40,6 @@ class PaneGrid extends React.Component {
 
           return (
             <PaneRow
-              key={paneRow.map(p => p.id).join()}
               paneRow={paneRow}
               isFirst={row === 0}
               moreThanOneRow={rows > 1}
