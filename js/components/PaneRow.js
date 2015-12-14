@@ -34,6 +34,7 @@ export default class PaneRow extends React.Component {
         {paneRow.map(function(pane) {
           return (
             <PaneContainer
+              key={pane.id}
               pane={pane}
               setActive={setActive}
               setType={setType}

@@ -28,9 +28,10 @@ export default class ColumnRemoverRow extends React.Component {
     return (
       <div className='pane-row adder'>
         {emptyRowRemover}
-        {range(cols).map(function(col) {
+        {range(cols).map(function(col, i) {
           return (
             <RowColumnController
+              key={i}
               orientation='row'
               isFirst={col === 0}
               allowRemoval={cols > 1}
