@@ -49,6 +49,12 @@ export function setPaneProperty(id, name, value) {
         name: 'codeLocation',
         value: CODE_LOCATION_DEFAULTS[value],
       });
+      dispatch({
+        type: SET_PANE_PROPERTY,
+        id,
+        name: 'content',
+        value: '',
+      });
     }
 
     if (getState().ui.autoRefresh) {
