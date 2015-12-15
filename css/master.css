@@ -71,12 +71,15 @@ html, body, #root, .paneless {
 
   margin-bottom: 5px;
 
-  display: flex;
-  flex-flow: row;
+  border-collapse: collapse;
 }
 
 .pane .header select {
   margin-right: 5px;
+}
+
+.pane .header td:last-child {
+  width: 100%;
 }
 
 .pane .content {

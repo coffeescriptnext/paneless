@@ -19,24 +19,32 @@ export default class PaneHeader extends PureComponent {
     } = this.props;
 
     return (
-      <div className='header'>
-        <PaneTypeSelector
-          type={type}
-          setType={t => setType(id, t)}
-          setCodeLocation={cl => setCodeLocation(id, cl)}
-        />
-        <PaneCodeLocationSelector
-          type={type}
-          codeLocation={codeLocation}
-          setCodeLocation={cl => setCodeLocation(id, cl)}
-        />
-        <ButtonWrapper
-          position='center-y right'
-          content='X'
-          onClick={_ => setActive(id, false)}
-          showButton
-        />
-      </div>
+      <table className='header'>
+        <tr>
+          <td>
+            <PaneTypeSelector
+              type={type}
+              setType={t => setType(id, t)}
+              setCodeLocation={cl => setCodeLocation(id, cl)}
+            />
+          </td>
+          <td>
+            <PaneCodeLocationSelector
+              type={type}
+              codeLocation={codeLocation}
+              setCodeLocation={cl => setCodeLocation(id, cl)}
+            />
+          </td>
+          <td>
+            <ButtonWrapper
+              position='center-y right'
+              content='X'
+              onClick={_ => setActive(id, false)}
+              showButton
+            />
+          </td>
+        </tr>
+      </table>
     );
   }
 }
