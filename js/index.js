@@ -8,8 +8,6 @@ import root from './reducers';
 import PaneGrid from './components/PaneGrid';
 import Footer from './components/Footer';
 
-// Apply our own version of redux-thunk to the store.
-// TODO: replace with the redux-thunk package.
 const store = applyMiddleware(
   thunk
 )(createStore)(root);
