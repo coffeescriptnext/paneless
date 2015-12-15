@@ -4,13 +4,8 @@ html, body, #root, .paneless {
   margin: 0;
 }
 
-.paneless {
-  display: flex;
-  flex-direction: column;
-}
-
 .pane-container {
-  flex: 1 1 auto;
+  height: calc(100% - 80px);
 
   display: flex;
   flex-direction: column;
@@ -21,7 +16,7 @@ html, body, #root, .paneless {
 }
 
 .footer {
-  flex: 0 0 auto;
+  height: 70px;
 
   display: flex;
   flex-flow: row;
